@@ -7,7 +7,8 @@ import ErrorLayout from "./layouts/Error";
 import DashboardLayout from "./layouts/Dashboard";
 
 // View
-import Authorization from "./containers/authorization";
+import Authorization from "./containers/authorization/authorization.js";
+import Tasks from "./containers/tasks/tasks.js";
 
 const routes = [
   {
@@ -61,7 +62,7 @@ const routes = [
       {
         path: "/tasks",
         exact: true,
-        component: () => <h1>tasks</h1>,
+        component: Tasks,
 
         // component: lazy(() => import("@containers/Tasks")),
       },
