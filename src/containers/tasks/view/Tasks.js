@@ -3,40 +3,43 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { Page } from "@components";
-import {
-  RightBar,
-  TabsBar,
-  TabContent,
-  TaskCard,
-  TabPanel,
-} from "./components";
+
+import RightBar from "./components/RightBar/RightBar";
+import TabsBar from "./components/TabsBar/TabsBar";
+import TabItem from "./components/TabItem/TabItem";
+// import CustomScrollbars from "../../../components/CustomScrollbars/CustomScrollbars";
 
 const useStyles = makeStyles((theme) => ({
   tasks: {
     boxSizing: "border-box",
-    position: "relative",
     display: "flex",
     flexDirection: "column",
+    marginRight: 300,
+    width: "calc(100% - 300px)",
     height: "100%",
-    padding: theme.spacing(2, 3),
   },
   tabsBar: {
-    width: "70%",
-    marginBottom: theme.spacing(2),
+    width: `calc(100% - ${theme.spacing(3)})`,
+    margin: theme.spacing(3),
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[2],
   },
   tabContent: {
     display: "flex",
     flexDirection: "column",
-    width: "70%",
+    width: `calc(100% - ${theme.spacing(3)})`,
+    margin: theme.spacing(3),
+
+    // margin: theme.spacing(3, 0),
     height: "100%",
   },
   rightBar: {
+    // display: "none",
     position: "absolute",
+    top: theme.spacing(3),
     right: theme.spacing(3),
-    width: "27%",
-    height: `calc(100% - ${theme.spacing(4)}px)`,
+    width: `calc(300 - ${theme.spacing(2.5)})`,
+    height: `calc(100% - ${theme.spacing(3)}px)`,
     padding: theme.spacing(2, 3),
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[2],
@@ -60,24 +63,22 @@ const Tasks = ({ tabs }) => {
         handleChange={handleChange}
         tabs={tabs}
       />
-
+      {/* <CustomScrollbars> */}
       {tabs.map((tab) => {
         const { label, id, component: Component } = tab;
         return (
-          <TabContent
+          <TabItem
             key={label}
             className={classes.tabContent}
             value={value}
             index={id}
-            TabPanel={TabPanel}
             title={label}
           >
             <Component />
-            {/* <TaskCard /> */}
-          </TabContent>
+          </TabItem>
         );
       })}
-
+      {/* </CustomScrollbars> */}
       <RightBar className={classes.rightBar} />
     </Page>
   );

@@ -1,6 +1,5 @@
 import React from "react";
 
-// import useStyles from "./styles";
 import { Tab, Tabs } from "@material-ui/core";
 
 function a11yProps(index) {
@@ -12,7 +11,6 @@ function a11yProps(index) {
 
 const TabsBar = (props) => {
   const { value, handleChange, tabs, className } = props;
-  // const classes = useStyles();
   return (
     <Tabs
       className={className}

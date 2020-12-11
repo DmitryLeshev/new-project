@@ -2,7 +2,9 @@ import query from "@assets/utils/query";
 
 class DevicesService {
   getAllDevices = async () => {
-    return await query("device/list");
+    const res = await query("device/list");
+
+    return res.msg;
   };
 
   getDeviceDetailsPrograms = async (id) => {

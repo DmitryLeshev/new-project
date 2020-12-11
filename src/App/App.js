@@ -11,10 +11,10 @@ import ScrollReset from "@components/ScrollReset";
 import { CssBaseline } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/styles";
 import {
-  // defaultThemeLight,
+  defaultThemeLight,
   // defaultThemeDark,
   // testThemeLight,
-  testThemeDark,
+  // testThemeDark,
 } from "../theme";
 
 import Loader from "@src/components/Loader/Loader";
@@ -41,9 +41,8 @@ class App extends Component {
     if (!this.props.ready) {
       return <Loader />;
     }
-
     return (
-      <ThemeProvider theme={testThemeDark}>
+      <ThemeProvider theme={defaultThemeLight}>
         <CssBaseline />
         <ScrollReset />
         {renderRoutes(this.state.routes)}

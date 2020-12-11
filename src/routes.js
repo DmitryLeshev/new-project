@@ -11,8 +11,9 @@ import Error404 from "./containers/errors/view/Error404";
 
 // View
 import Authorization from "./containers/authorization/authorization";
-import Tasks from "./containers/tasks/tasks";
 import Dashboard from "./containers/dashboard/dashboard";
+import Tasks from "./containers/tasks/tasks";
+import Devices from "./containers/devices/devices";
 
 const useRoutes = (isAuthenticated) => {
   if (isAuthenticated) {
@@ -53,17 +54,17 @@ const useRoutes = (isAuthenticated) => {
           {
             path: "/devices",
             exact: true,
-            component: () => <h1>devices</h1>,
+            component: Devices,
           },
           {
             path: "/devices/:id",
             exact: true,
-            component: () => <h1>devices</h1>,
+            component: Devices,
           },
           {
             path: "/devices/:id/:tab",
             exact: true,
-            component: () => <h1>devices</h1>,
+            component: Devices,
           },
           {
             path: "/dictionaries",

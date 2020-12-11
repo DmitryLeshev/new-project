@@ -1,11 +1,20 @@
 import React from "react";
 
+import { makeStyles } from "@material-ui/core";
+
+import TaskCard from "../../../view/components/TaskCard/TaskCard";
+
+const useStyles = makeStyles((theme) => ({
+  inWorksWrapper: {},
+}));
+
 const TasksInWork = ({ tasks }) => {
+  console.log("TasksInWork: ", tasks);
+  const classes = useStyles();
   return (
-    <div>
-      <h1>TasksInWork</h1>
+    <div className={classes.inWorksWrapper}>
       {tasks.map((task) => {
-        return <h2>{task.id}</h2>;
+        return <TaskCard key={task.id} task={task} />;
       })}
     </div>
   );
