@@ -11,8 +11,21 @@ import { connect } from "react-redux";
 
 import { ContentsTitle, PaletteColors, ModesThemes } from "./components";
 
-import { Divider, Drawer } from "@material-ui/core";
-import useStyles from "./styles";
+import { Divider, Drawer, makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: theme.drawer.width,
+    height: "100%",
+    transition: theme.drawer.transition,
+  },
+  content: {
+    display: "flex",
+    flexDirection: "column",
+    marginBottom: theme.spacing(3),
+    padding: theme.spacing(2),
+  },
+}));
 
 const ThemeSettings = (props) => {
   const {
@@ -23,6 +36,7 @@ const ThemeSettings = (props) => {
     darkMode,
   } = props;
   const classes = useStyles();
+
   return (
     <Drawer anchor={"right"} open={themeSettings} onClose={themeSettingsClosed}>
       <div className={classes.root}>

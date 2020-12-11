@@ -1,14 +1,6 @@
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 
-import { connect } from "react-redux";
-import {
-  navBarOpen,
-  navBarClosed,
-  themeSettingsOpen,
-} from "@redux/app/appActions";
-import { userLogsOut } from "@containers/authorization/authorizationAction";
-
 import clsx from "clsx";
 import {
   AppBar,
@@ -16,12 +8,51 @@ import {
   IconButton,
   Toolbar,
   Typography,
+  makeStyles,
 } from "@material-ui/core";
-import useStyles from "./styles";
 
 import NotificationsIcon from "@material-ui/icons/NotificationsOutlined";
 import MenuIcon from "@material-ui/icons/Menu";
 import SettingsIcon from "@material-ui/icons/Settings";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    boxShadow: "none",
+    transition: theme.drawer.transition,
+  },
+  topBarShift: {
+    width: `calc(100% - ${theme.drawer.width}px)`,
+    marginLeft: theme.drawer.width,
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      marginLeft: 0,
+    },
+  },
+  brend: {
+    marginLeft: theme.spacing(1),
+    fontWeight: 700,
+    color: theme.palette.common.white,
+  },
+  rightContent: {
+    marginLeft: "auto",
+    marginRight: theme.spacing(1),
+  },
+  menuIcon: {
+    width: 30,
+    height: 30,
+    color: theme.palette.common.white,
+  },
+  settingsIcon: {
+    width: 30,
+    height: 30,
+    color: theme.palette.common.white,
+  },
+  notificationsIcon: {
+    width: 30,
+    height: 30,
+    color: theme.palette.common.white,
+  },
+}));
 
 const TopBar = (props) => {
   const {
@@ -31,6 +62,7 @@ const TopBar = (props) => {
     navBar,
     userLogsOut,
   } = props;
+
   const classes = useStyles();
 
   function toggleMenu() {
@@ -80,20 +112,4 @@ const TopBar = (props) => {
   );
 };
 
-function mapStateToProps(state) {
-  return {
-    navBar: state.app.navBar,
-    authorized: state.authorization.authorized,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    navBarOpen: () => dispatch(navBarOpen()),
-    navBarClosed: () => dispatch(navBarClosed()),
-    themeSettingsOpen: () => dispatch(themeSettingsOpen()),
-    userLogsOut: () => dispatch(userLogsOut()),
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(TopBar);
+export default TopBar;

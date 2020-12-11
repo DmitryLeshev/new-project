@@ -1,20 +1,12 @@
-import { TEST } from "./tasksActionTypes";
+import { combineReducers } from "redux";
+import tasksСompletedReducer from "./tasksTabs/tasksСompleted/reducer";
+import tasksCanceledReducer from "./tasksTabs/tasksCanceled/reducer";
+import tasksDeferredReducer from "./tasksTabs/tasksDeferred/reducer";
+import tasksInWorkReducer from "./tasksTabs/tasksInWork/reducer";
 
-const initionState = {
-  list: null,
-};
-
-const tasksReducer = (state = initionState, action) => {
-  switch (action.type) {
-    case TEST:
-      return {
-        ...state,
-        list: ["test"],
-      };
-
-    default:
-      return state;
-  }
-};
-
-export default tasksReducer;
+export default combineReducers({
+  completed: tasksСompletedReducer,
+  canceled: tasksCanceledReducer,
+  deferred: tasksDeferredReducer,
+  inWork: tasksInWorkReducer,
+});

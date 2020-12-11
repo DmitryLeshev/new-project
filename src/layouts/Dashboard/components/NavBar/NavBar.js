@@ -2,9 +2,6 @@ import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { Scrollbars } from "react-custom-scrollbars";
 
-import { connect } from "react-redux";
-import { navBarClosed } from "@redux/app/appActions";
-
 import clsx from "clsx";
 import {
   Avatar,
@@ -13,19 +10,61 @@ import {
   Typography,
   useMediaQuery,
   useTheme,
+  makeStyles,
 } from "@material-ui/core";
-import useStyles from "./styles";
 
 import Navigation from "@components/Navigation";
 import navigationConfig from "./navigationConfig";
 import imgAvatar from "@assets/images/img_avatar.png";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    position: "absolute",
+    zIndex: 1000,
+    width: theme.drawer.width,
+    height: "100%",
+    transition: theme.drawer.transition,
+    backgroundColor: theme.palette.background.paper,
+    overflow: "auto",
+    boxShadow: theme.shadows[4],
+  },
+  rootMobile: {
+    width: theme.drawer.width,
+    transition: theme.drawer.transition,
+  },
+  navBarShift: {
+    transform: `translateX(-${theme.drawer.width}px)`,
+  },
+  content: {
+    padding: theme.spacing(2),
+  },
+  profile: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    minHeight: "fit-content",
+  },
+  avatar: {
+    width: 100,
+    height: 100,
+  },
+  name: {
+    marginTop: theme.spacing(1),
+  },
+  divider: {
+    backgroundColor: theme.palette.common.divider,
+    marginTop: theme.spacing(2),
+  },
+  navigation: {
+    marginTop: theme.spacing(2),
+  },
+}));
 
 const NavBar = (props) => {
   const { navBar, navBarClosed } = props;
   const classes = useStyles();
   const theme = useTheme();
   const mobileDevice = useMediaQuery(theme.breakpoints.down("sm"));
-  // console.log("mobileDevice: ", mobileDevice, theme.breakpoints.down("sm"));
 
   function renderContent() {
     return (
@@ -83,16 +122,4 @@ const NavBar = (props) => {
   }
 };
 
-function mapStateToProps(state) {
-  return {
-    navBar: state.app.navBar,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    navBarClosed: () => dispatch(navBarClosed()),
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
+export default NavBar;

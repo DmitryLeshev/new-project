@@ -1,7 +1,16 @@
 import React from "react";
 
-import { Typography } from "@material-ui/core";
-import useStyles from "./styles";
+import { Typography, makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    height: "100%",
+  },
+}));
 
 const Loader = () => {
   const classes = useStyles();

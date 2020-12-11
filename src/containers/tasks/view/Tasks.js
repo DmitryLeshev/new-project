@@ -1,34 +1,49 @@
 import React from "react";
 
-import { RightBar, TabsBar, TabContent, TaskCard } from "./components";
+import { makeStyles } from "@material-ui/core/styles";
+
 import { Page } from "@components";
+import {
+  RightBar,
+  TabsBar,
+  TabContent,
+  TaskCard,
+  TabPanel,
+} from "./components";
 
-import useStyles from "./styles";
-import { connect } from "react-redux";
+const useStyles = makeStyles((theme) => ({
+  tasks: {
+    boxSizing: "border-box",
+    position: "relative",
+    display: "flex",
+    flexDirection: "column",
+    height: "100%",
+    padding: theme.spacing(2, 3),
+  },
+  tabsBar: {
+    width: "70%",
+    marginBottom: theme.spacing(2),
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[2],
+  },
+  tabContent: {
+    display: "flex",
+    flexDirection: "column",
+    width: "70%",
+    height: "100%",
+  },
+  rightBar: {
+    position: "absolute",
+    right: theme.spacing(3),
+    width: "27%",
+    height: `calc(100% - ${theme.spacing(4)}px)`,
+    padding: theme.spacing(2, 3),
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[2],
+  },
+}));
 
-import { test } from "@redux/tasks/tasksActions";
-
-// Временно
-function TabPanel(props) {
-  const { children, value, index, className } = props;
-
-  return (
-    <div
-      style={{ height: "100%" }}
-      role="tabpanel"
-      hidden={value !== index}
-      id={`scrollable-auto-tabpanel-${index}`}
-      aria-labelledby={`scrollable-auto-tab-${index}`}
-    >
-      {value === index && <div className={className}> {children}</div>}
-    </div>
-  );
-}
-
-const Tasks = (props) => {
-  const { test } = props;
-  console.log(test);
-  console.log("props: ", props);
+const Tasks = ({ tabs }) => {
   const classes = useStyles();
 
   const [value, setValue] = React.useState(0);
@@ -36,13 +51,6 @@ const Tasks = (props) => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  const tabs = [
-    { label: "В работе", id: 0 },
-    { label: "Отложенные", id: 1 },
-    { label: "Отмененные", id: 2 },
-    { label: "Завершенные", id: 3 },
-  ];
 
   return (
     <Page className={classes.tasks} title="Задачи" scroll>
@@ -53,34 +61,26 @@ const Tasks = (props) => {
         tabs={tabs}
       />
 
-      {tabs.map((tab) => (
-        <TabContent
-          key={tab.label}
-          className={classes.tabContent}
-          value={value}
-          index={tab.id}
-          TabPanel={TabPanel}
-          title={tab.label}
-        >
-          <TaskCard />
-        </TabContent>
-      ))}
+      {tabs.map((tab) => {
+        const { label, id, component: Component } = tab;
+        return (
+          <TabContent
+            key={label}
+            className={classes.tabContent}
+            value={value}
+            index={id}
+            TabPanel={TabPanel}
+            title={label}
+          >
+            <Component />
+            {/* <TaskCard /> */}
+          </TabContent>
+        );
+      })}
 
       <RightBar className={classes.rightBar} />
     </Page>
   );
 };
 
-function mapStateToProps(state) {
-  return {
-    tasks: state.tasks.list,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    test: () => dispatch(test()),
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Tasks);
+export default Tasks;

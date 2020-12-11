@@ -5,7 +5,8 @@ import NodeRSA from "node-rsa";
 import axios from "axios";
 let kuz = new Kuz(localStorage.getItem("cryptKey"));
 
-let host = "http://192.168.1.72";
+let host = "http://192.168.1.119";
+// let host = "http://192.168.1.72";
 if (process.env.NODE_ENV === "production") host = "location.host";
 axios.defaults.withCredentials = true;
 

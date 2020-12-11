@@ -1,15 +1,11 @@
 import React, { Suspense } from "react";
 
-import { Redirect } from "react-router";
 import { renderRoutes } from "react-router-config";
-
-import { connect } from "react-redux";
-import { compose } from "redux";
 
 import { withStyles } from "@material-ui/styles";
 import { LinearProgress } from "@material-ui/core";
 
-import { TopBar } from "./components";
+import TopBar from "./components/TopBar";
 
 const styles = (theme) => ({
   content: {
@@ -22,12 +18,7 @@ const styles = (theme) => ({
 });
 
 const Auth = (props) => {
-  const { route, authorized, classes } = props;
-
-  if (authorized) {
-    console.log("Перенаправляем на главную страницу");
-    return <Redirect to="/dashboard" />;
-  }
+  const { route, classes } = props;
 
   return (
     <React.Fragment>
@@ -41,10 +32,4 @@ const Auth = (props) => {
   );
 };
 
-function mapStateToProps(state) {
-  return {
-    authorized: state.authorization.authorized,
-  };
-}
-
-export default compose(connect(mapStateToProps), withStyles(styles))(Auth);
+export default withStyles(styles)(Auth);

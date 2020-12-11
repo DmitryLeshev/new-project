@@ -1,7 +1,7 @@
 import { LOG_IN, LOG_OUT } from "./authorizationActionTypes";
 
 const initionState = {
-  authorized: null,
+  authorized: false,
 };
 
 const appReducer = (state = initionState, action) => {

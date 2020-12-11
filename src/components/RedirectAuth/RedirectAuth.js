@@ -3,7 +3,8 @@ import { Redirect } from "react-router";
 
 class RedirectAuth extends Component {
   redirectToAuthorization = () => {
-    return <Redirect to="/authorization" />;
+    console.log("test");
+    // return <Redirect to="/authorization" />;
   };
 
   componentDidMount() {

@@ -1,5 +1,5 @@
-import TopBar from "./TopBar";
-import NavBar from "./NavBar";
-import ThemeSettings from "./ThemeSettings";
+import TopBar from "./TopBar/TopBar";
+import NavBar from "./NavBar/NavBar";
+import ThemeSettings from "./ThemeSettings/ThemeSettings";
 
 export { TopBar, NavBar, ThemeSettings };

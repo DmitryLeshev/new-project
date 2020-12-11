@@ -2,8 +2,8 @@ import React from "react";
 
 import { Table, TableContainer } from "@material-ui/core";
 
-import ErrorIndicator from "@containers/ErrorBoundry/components/ErrorIndicator/ErrorIndicator";
-import { Loader } from "@components";
+import ErrorIndicator from "@src/containers/errors/view/ErrorIndicator";
+import Loader from "@src/components/Loader/Loader";
 import useStyles from "./styles";
 import EnhancedTableBody from "./EnhancedTableBody";
 import EnhancedTableHead from "./EnhancedTableHead";

@@ -29,6 +29,7 @@ export function userCheckStatus() {
 export function userLogsIn(login, password) {
   return async (dispatch) => {
     const res = await authorizationService.loginAuth(login, password);
+    console.log("userLogsIn res: ");
     if (res === "success") {
       console.log("Авторизация прошла успешно");
       dispatch(logIn());

@@ -1,10 +1,15 @@
 import React, { Suspense } from "react";
 
-import { Redirect } from "react-router";
 import { renderRoutes } from "react-router-config";
 
 import { connect } from "react-redux";
 import { compose } from "redux";
+import {
+  navBarClosed,
+  navBarOpen,
+  themeSettingsOpen,
+} from "@src/App/appActions";
+import { userLogsOut } from "@src/containers/authorization/authorizationAction";
 
 import clsx from "clsx";
 import { withStyles } from "@material-ui/styles";
@@ -38,17 +43,26 @@ const styles = (theme) => ({
 });
 
 const Dashboard = (props) => {
-  const { route, navBar, authorized, classes } = props;
-
-  if (!authorized) {
-    console.log("Перенаправляем на страницу авторизации");
-    return <Redirect to="/authorization" />;
-  }
+  const {
+    route,
+    navBar,
+    classes,
+    navBarOpen,
+    navBarClosed,
+    themeSettingsOpen,
+    userLogsOut,
+  } = props;
 
   return (
     <React.Fragment>
-      <TopBar />
-      <NavBar />
+      <TopBar
+        navBar={navBar}
+        navBarOpen={navBarOpen}
+        navBarClosed={navBarClosed}
+        themeSettingsOpen={themeSettingsOpen}
+        userLogsOut={userLogsOut}
+      />
+      <NavBar navBar={navBar} navBarClosed={navBarClosed} />
       <ThemeSettings />
       <main className={classes.container}>
         <div
@@ -68,8 +82,19 @@ const Dashboard = (props) => {
 function mapStateToProps(state) {
   return {
     navBar: state.app.navBar,
-    authorized: state.authorization.authorized,
   };
 }
 
-export default compose(connect(mapStateToProps), withStyles(styles))(Dashboard);
+function mapDispatchToProps(dispatch) {
+  return {
+    navBarOpen: () => dispatch(navBarOpen()),
+    navBarClosed: () => dispatch(navBarClosed()),
+    themeSettingsOpen: () => dispatch(themeSettingsOpen()),
+    userLogsOut: () => dispatch(userLogsOut()),
+  };
+}
+
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withStyles(styles)
+)(Dashboard);

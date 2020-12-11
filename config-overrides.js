@@ -9,6 +9,7 @@ module.exports = function override(config) {
     "@assets": "src/assets",
     "@redux": "src/redux",
     "@theme": "src/theme",
+    "@src": "src",
   })(config);
 
   return config;

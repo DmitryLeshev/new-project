@@ -1,13 +1,21 @@
 import React, { Component } from "react";
 
+import { connect } from "react-redux";
+
+import TasksView from "./view/Tasks";
+import tabs from "./tasksTabsConfig";
 class Tasks extends Component {
   render() {
-    return (
-      <div>
-        <h1>Tasks</h1>
-      </div>
-    );
+    return <TasksView tabs={tabs} />;
   }
 }
 
-export default Tasks;
+const mapStateToProps = (state) => {
+  return {};
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Tasks);
