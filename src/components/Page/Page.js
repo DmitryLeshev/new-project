@@ -35,7 +35,11 @@ const Page = (props) => {
 
   return (
     <React.Fragment>
-      {scroll ? <CustomScrollbars>{page}</CustomScrollbars> : page}
+      {scroll ? (
+        <CustomScrollbars style={{ width: "100%" }}>{page}</CustomScrollbars>
+      ) : (
+        page
+      )}
     </React.Fragment>
   );
 };

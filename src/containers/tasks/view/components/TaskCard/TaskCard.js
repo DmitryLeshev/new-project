@@ -17,9 +17,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[2],
     cursor: "pointer",
-    transition: "transform 0.3s ease-out",
+    transition: "all 0.3s ease-out",
     "&:hover": {
-      transform: "translate(0, -2px)",
+      boxShadow: theme.shadows[4],
     },
   },
   header: {

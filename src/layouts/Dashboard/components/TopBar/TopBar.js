@@ -42,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
     height: 30,
     color: theme.palette.common.white,
   },
+  iconButton: {
+    marginRight: theme.spacing(2),
+  },
   settingsIcon: {
     width: 30,
     height: 30,
@@ -96,7 +99,7 @@ const TopBar = (props) => {
           <NotificationsIcon className={classes.notificationsIcon} />
         </IconButton>
 
-        <IconButton onClick={themeSettingsOpen}>
+        <IconButton className={classes.iconButton} onClick={themeSettingsOpen}>
           <SettingsIcon className={classes.settingsIcon} />
         </IconButton>
 

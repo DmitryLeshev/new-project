@@ -3,8 +3,8 @@ import query from "@assets/utils/query";
 class TasksService {
   getTasks = async (progressId = 1) => {
     const res = await query("task/list", { progressId });
-    console.log("getAllTasks res.msg: ", res.msg);
-    return res.msg;
+    console.log("getAllTasks res.msg: ", res);
+    return res;
   };
 
   getTaskById = async (id, lang = "ru") => {

@@ -3,20 +3,31 @@ import query from "@assets/utils/query";
 class DevicesService {
   getAllDevices = async () => {
     const res = await query("device/list");
-
+    // console.log("getAllDevices", res);
     return res.msg;
   };
 
   getDeviceDetailsPrograms = async (id) => {
     // Перенести трансоформацию в редукс
-    const res = await query("device/getLanPrograms", { id: id });
+    const res = await query("deviceInfo/getPrograms", { id });
     console.log(res);
-    return res.map(this._transformProgram);
+    return res;
+    // return res.map(this._transformProgram);
   };
 
-  getDeviceDetailsScreenshots = async (id, page = 1, user = null) => {
-    const body = { device_id: id, page, user };
-    return await query("device/getLanScreen", body);
+  getDeviceDetailsScreenshots = async (
+    id,
+    page = 1,
+    user = null,
+    tstStart = 0,
+    tstEnd = 0
+  ) => {
+    const body = { id, page, user, tstStart, tstEnd };
+    console.log("getDeviceDetailsScreenshots body: ", body);
+    const res = await query("deviceInfo/getScreen", body);
+    console.log("getDeviceDetailsScreenshots res: ", res);
+    return res;
+    // return await query("device/getLanScreen", body);
   };
 
   getDeviceDetailsPorts = async (id) => {

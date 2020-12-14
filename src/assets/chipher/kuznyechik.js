@@ -98,7 +98,7 @@ class Kuz {
       );
   }
 
-  updateKey(key) {
+  setKey(key) {
     this.key = key;
   }
 }

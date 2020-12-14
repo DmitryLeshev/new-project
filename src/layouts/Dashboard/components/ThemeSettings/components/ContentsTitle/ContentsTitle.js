@@ -1,9 +1,26 @@
 import React from "react";
 
-import useStyles from "./styles";
-
+import { Typography, makeStyles } from "@material-ui/core";
 import BrushIcon from "@material-ui/icons/Brush";
-import { Typography } from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+  contentsTitle: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: theme.spacing(3),
+  },
+  brushIcon: {
+    width: 80,
+    height: 80,
+    margin: "auto",
+    marginBottom: theme.spacing(2),
+  },
+  title: {
+    textAlign: "center",
+  },
+}));
 
 const ContentsTitle = () => {
   const classes = useStyles();

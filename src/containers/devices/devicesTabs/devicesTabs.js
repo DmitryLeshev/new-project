@@ -6,13 +6,35 @@ import { compose } from "redux";
 
 import DevicesTabsView from "./view/DevicesTabs";
 
+import tabsConfig from "./devicesTabsConfig";
+
 class DevicesTabs extends Component {
+  getDeviceById = () => {
+    const { id } = this.props.match.params;
+    const { devices } = this.props;
+    if (devices) {
+      return devices.find((device) => device.id === Number(id));
+    } else return null;
+  };
+
+  getSelectedTab = () => {
+    const { tab } = this.props.match.params;
+    if (tab) {
+      return tabsConfig.find((tabItem) => tabItem.value === tab).id;
+    } else return null;
+  };
+
   render() {
     const { id, tab } = this.props.match.params;
-    const { devices } = this.props;
-    let device;
-    if (devices) device = devices.find((d) => d.id === Number(id));
-    return <DevicesTabsView device={device} id={id} tab={tab} />;
+    return (
+      <DevicesTabsView
+        id={id}
+        tab={tab}
+        device={this.getDeviceById()}
+        tabsConfig={tabsConfig}
+        selectedTab={this.getSelectedTab()}
+      />
+    );
   }
 }
 

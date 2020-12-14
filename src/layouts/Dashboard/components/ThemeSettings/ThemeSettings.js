@@ -2,12 +2,12 @@ import React from "react";
 import { Scrollbars } from "react-custom-scrollbars";
 
 import { connect } from "react-redux";
-// import {
-//   themeSettingsOpen,
-//   themeSettingsClosed,
-//   darkModeChange,
-//   switchTheme,
-// } from "@redux/app/appActions";
+import {
+  themeSettingsOpen,
+  themeSettingsClosed,
+  darkModeChange,
+  switchTheme,
+} from "@src/App/appActions";
 
 import { ContentsTitle, PaletteColors, ModesThemes } from "./components";
 
@@ -60,17 +60,17 @@ const ThemeSettings = (props) => {
 
 function mapStateToProps(state) {
   return {
-    // themeSettings: state.app.themeSettings,
-    // darkMode: state.app.darkMode,
+    themeSettings: state.app.themeSettings,
+    darkMode: state.app.darkMode,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    // themeSettingsOpen: () => dispatch(themeSettingsOpen()),
-    // themeSettingsClosed: () => dispatch(themeSettingsClosed()),
-    // darkModeChange: () => dispatch(darkModeChange()),
-    // switchTheme: (theme) => dispatch(switchTheme(theme)),
+    themeSettingsOpen: () => dispatch(themeSettingsOpen()),
+    themeSettingsClosed: () => dispatch(themeSettingsClosed()),
+    darkModeChange: () => dispatch(darkModeChange()),
+    switchTheme: (theme) => dispatch(switchTheme(theme)),
   };
 }
 

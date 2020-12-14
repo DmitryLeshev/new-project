@@ -1,9 +1,32 @@
 import React from "react";
 
-import { ColorBox } from "./components";
+import ColorBox from "./components/ColorBox";
 
-import useStyles from "./styles";
-import { Typography } from "@material-ui/core";
+import { Typography, makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+  paletteColors: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+  },
+  paletteColorsTitle: {
+    textAlign: "center",
+  },
+  paletteColorsList: {
+    listStyle: "none",
+    margin: 0,
+    marginTop: theme.spacing(1),
+  },
+  paletteColorsListItem: {
+    marginBottom: theme.spacing(1),
+    padding: theme.spacing(1, 0),
+  },
+  paletteColorBox: {
+    width: "100%",
+    height: 40,
+    backgroundColor: "red",
+  },
+}));
 
 const primaryPurple = "primaryPurple";
 const primaryBlue = "primaryBlue";

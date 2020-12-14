@@ -10,7 +10,7 @@ import Loader from "@src/components/Loader/Loader";
 const useStyles = makeStyles((theme) => ({
   deviceDetails: {
     display: "flex",
-    width: "100%",
+    width: `calc(100% - ${theme.spacing(6)}px)`,
     alignItems: "center",
     margin: theme.spacing(0, 3, 3),
     padding: theme.spacing(3),

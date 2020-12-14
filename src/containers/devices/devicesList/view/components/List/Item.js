@@ -45,16 +45,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Item = (props) => {
-  const { id, textPrimary, textSecondary, icon: Icon, active } = props;
+const Item = ({ id, textPrimary, textSecondary, icon: Icon, active }) => {
   const classes = useStyles();
   const theme = useTheme();
 
-  const renderIcon = (
-    <ListItemIcon>
-      <Icon className={classes.icon} />
-    </ListItemIcon>
-  );
+  // const renderIcon = (
+  //   <ListItemIcon>
+  //     <Icon className={classes.icon} />
+  //   </ListItemIcon>
+  // );
 
   const renderText = (
     <ListItemText
@@ -84,13 +83,16 @@ const Item = (props) => {
 
   return (
     <ListItem
-      key={id}
       className={clsx({ [classes.active]: active })}
       button
       component={RouterLink}
       to={`/devices/${id}/information`}
     >
-      {Icon && renderIcon}
+      {Icon && (
+        <ListItemIcon>
+          <Icon className={classes.icon} />
+        </ListItemIcon>
+      )}
       {textSecondary ? renderSecondaryText : renderText}
       <div className={classes.details}>
         {id === 482 || id === 483 || id === 467 || id === 472 ? (
@@ -99,13 +101,7 @@ const Item = (props) => {
             color={theme.palette.success.main}
             shape="rounded"
           />
-        ) : (
-          <Label
-            className={classes.unread}
-            color={theme.palette.error.main}
-            shape="rounded"
-          />
-        )}
+        ) : null}
       </div>
     </ListItem>
   );

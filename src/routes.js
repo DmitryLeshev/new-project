@@ -9,11 +9,15 @@ import DashboardLayout from "./layouts/Dashboard/Dashboard";
 // Error
 import Error404 from "./containers/errors/view/Error404";
 
+// DevelopingPage
+import DevelopingPage from "./components/DevelopingPage/DevelopingPage";
+
 // View
 import Authorization from "./containers/authorization/authorization";
 import Dashboard from "./containers/dashboard/dashboard";
 import Tasks from "./containers/tasks/tasks";
 import Devices from "./containers/devices/devices";
+import Settings from "./containers/settings/settings";
 
 const useRoutes = (isAuthenticated) => {
   if (isAuthenticated) {
@@ -69,37 +73,32 @@ const useRoutes = (isAuthenticated) => {
           {
             path: "/dictionaries",
             exact: true,
-            component: () => <h1>dictionaries</h1>,
+            component: DevelopingPage,
           },
           {
             path: "/tools",
             exact: true,
-            component: () => <h1>tools</h1>,
+            component: DevelopingPage,
           },
           {
             path: "/users",
             exact: true,
-            component: () => <h1>users</h1>,
+            component: DevelopingPage,
           },
           {
             path: "/vulnerability-database",
             exact: true,
-            component: () => <h1>vulnerability</h1>,
+            component: DevelopingPage,
           },
           {
             path: "/reports",
             exact: true,
-            component: () => <h1>reports</h1>,
+            component: DevelopingPage,
           },
           {
             path: "/settings",
             exact: true,
-            component: () => <h1>settings</h1>,
-          },
-          {
-            path: "/app-components",
-            exact: true,
-            component: () => <h1>app</h1>,
+            component: Settings,
           },
           {
             component: () => <Redirect to="/dashboard" />,

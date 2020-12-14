@@ -19,22 +19,39 @@ const axiosConfig = {
   withCredentials: true,
 };
 
-export { q, startNewSession, checkSession };
+export { q, startNewSession, makeSession as checkSession };
 
-function q(path, args = {}) {
+let running_promise = false;
+
+let key_get_promise = new Promise((resolve) => {
+  resolve();
+});
+async function q(path, args = {}) {
+  await key_get_promise;
   if (!localStorage.hasOwnProperty("cryptKey")) {
-    return checkSession().then((val) => q(path, args));
+    key_get_promise = new Promise(async function (resolve) {
+      running_promise = true;
+      await makeSession();
+      running_promise = false;
+      resolve();
+    });
   }
-  kuz.updateKey(localStorage.getItem("cryptKey"));
 
+  kuz.setKey(localStorage.getItem("cryptKey"));
   return kuz
     .encrypt(JSON.stringify({ path: path, args: args }))
-    .then((params) => {
+    .then(async (params) => {
       return axios.post(host, params, axiosConfig);
     })
-    .then((response) => {
-      if (response.data === "invalid-key") {
-        return checkSession().then((val) => q(path, args));
+    .then(async (response) => {
+      if (response.data === "invalid-key" && running_promise === false) {
+        key_get_promise = new Promise(async function (resolve) {
+          running_promise = true;
+          await makeSession();
+          running_promise = false;
+          resolve();
+        });
+        return q(path, args);
       }
       return kuz.decrypt(response.data).then((dec) => {
         // return dec;
@@ -47,40 +64,22 @@ function q(path, args = {}) {
     });
 }
 
-function startNewSession() {
+async function startNewSession() {
   if (localStorage.hasOwnProperty("cryptKey"))
     localStorage.removeItem("cryptKey");
   if (getCookie("PHPSESSID") !== undefined) deleteCookie("PHPSESSID");
-  return checkSession();
 }
 
-function checkSession() {
-  if (
-    !localStorage.hasOwnProperty("cryptKey") ||
-    localStorage.getItem("cryptKey") === ""
-  ) {
-    let crypt = new NodeRSA({ b: 1024 });
-    let publicKey = window.btoa(
-      unescape(encodeURIComponent(crypt.exportKey("pkcs8-public")))
-    );
-    return axios.post(host, "publicKey" + publicKey).then((response) => {
-      let cryptKey = crypt.decrypt(response.data, "utf8");
-      localStorage.setItem("cryptKey", cryptKey);
-      kuz.updateKey(cryptKey);
-      if (response.data === "invalid-key") startNewSession();
-      return true;
-    });
-  } else {
-    let crypt = new NodeRSA({ b: 1024 });
-    let publicKey = window.btoa(
-      unescape(encodeURIComponent(crypt.exportKey("pkcs8-public")))
-    );
-    return axios.post(host, "publicKey" + publicKey).then((response) => {
-      let cryptKey = crypt.decrypt(response.data, "utf8");
-      localStorage.setItem("cryptKey", cryptKey);
-      kuz.updateKey(cryptKey);
-      if (response.data === "invalid-key") startNewSession();
-      return true;
-    });
-  }
+function makeSession() {
+  let crypt = new NodeRSA({ b: 1024 });
+  let publicKey = window.btoa(
+    unescape(encodeURIComponent(crypt.exportKey("pkcs8-public")))
+  );
+  return axios.post(host, "publicKey" + publicKey).then((response) => {
+    let cryptKey = crypt.decrypt(response.data, "utf8");
+    localStorage.setItem("cryptKey", cryptKey);
+    kuz.setKey(cryptKey);
+    if (response.data === "invalid-key") return startNewSession();
+    return true;
+  });
 }

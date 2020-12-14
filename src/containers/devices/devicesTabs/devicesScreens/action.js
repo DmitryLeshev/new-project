@@ -9,7 +9,7 @@ import {
   SCREENS_RESET_DATA,
 } from "./actionsTypes";
 
-import DevicesService from "@services/DevicesService";
+import DevicesService from "../../devicesService";
 const devicesService = new DevicesService();
 
 // SCREENS
@@ -99,14 +99,14 @@ export function getDetailsScreens(id, selectedUserValue = 0) {
       if (!loaded) {
         // loadedPage = loadedPage + 1
         dispatch(screensLoadingScreenshotsPack());
-        const dataScreens = await devicesService.getDeviceDetailsScreenshots(
+        const res = await devicesService.getDeviceDetailsScreenshots(
           id,
           loadedPage + 1,
           selectedUser
         );
-        if (dataScreens) {
-          const responseScreenshots = dataScreens.images;
-          const responseUsers = dataScreens.users;
+        if (res.status) {
+          const responseScreenshots = res.msg.images;
+          const responseUsers = res.msg.users;
           const screenshotsPack = getScreenshotsPack(responseScreenshots);
 
           if (!users) {
@@ -120,7 +120,7 @@ export function getDetailsScreens(id, selectedUserValue = 0) {
           dispatch(screensGetLoadedPage(loadedPage + 1));
           dispatch(screensAddScreenshotsPack(screenshotsPack));
         } else {
-          console.log("Нету dataScreens");
+          console.log("Скринов нету");
           dispatch(screensLoaded());
         }
       } else {

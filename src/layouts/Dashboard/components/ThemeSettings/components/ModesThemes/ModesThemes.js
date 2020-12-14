@@ -1,7 +1,25 @@
 import React from "react";
 
-import useStyles from "./styles";
-import { Switch, Typography } from "@material-ui/core";
+import { Switch, Typography, makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+  modesThemes: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+  },
+  modesThemeTitle: {
+    textAlign: "center",
+    marginBottom: theme.spacing(3),
+  },
+  switch: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-beetwen",
+  },
+  switchItem: {
+    textAlign: "center",
+  },
+}));
 
 const ModesThemes = (props) => {
   const { darkMode, darkModeChange } = props;

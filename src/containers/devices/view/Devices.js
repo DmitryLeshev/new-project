@@ -2,7 +2,7 @@ import React from "react";
 
 import { makeStyles } from "@material-ui/core";
 
-import { Page } from "@components";
+import Page from "@src/components/Page/Page";
 
 import DevicesList from "../devicesList/devicesList";
 import DevicesTabs from "../devicesTabs/devicesTabs";

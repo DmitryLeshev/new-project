@@ -12,9 +12,9 @@ import { CssBaseline } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/styles";
 import {
   defaultThemeLight,
-  // defaultThemeDark,
-  // testThemeLight,
-  // testThemeDark,
+  defaultThemeDark,
+  testThemeLight,
+  testThemeDark,
 } from "../theme";
 
 import Loader from "@src/components/Loader/Loader";
@@ -37,12 +37,21 @@ class App extends Component {
     this.props.appReady();
   };
 
+  themeProvider = () => {
+    const { darkMode, appTheme } = this.props;
+    if (appTheme === "default") {
+      return darkMode ? defaultThemeDark : defaultThemeLight;
+    } else if (appTheme === "test") {
+      return darkMode ? testThemeDark : testThemeLight;
+    }
+  };
+
   render() {
     if (!this.props.ready) {
       return <Loader />;
     }
     return (
-      <ThemeProvider theme={defaultThemeLight}>
+      <ThemeProvider theme={this.themeProvider()}>
         <CssBaseline />
         <ScrollReset />
         {renderRoutes(this.state.routes)}
@@ -55,6 +64,8 @@ const mapStateToProps = (state) => {
   return {
     authorized: state.authorization.authorized,
     ready: state.app.ready,
+    darkMode: state.app.darkMode,
+    appTheme: state.app.theme,
   };
 };
 

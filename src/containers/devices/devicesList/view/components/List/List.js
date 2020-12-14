@@ -32,8 +32,6 @@ const useStyles = makeStyles((theme) => ({
   },
   active: {
     boxShadow: `inset -4px 0px 0px ${theme.palette.primary.main}`,
-    // backgroundColor: theme.palette.grey[50],
-    // backgroundColor: theme.palette.background.default,
     backgroundColor: "rgba(0, 0, 0, 0.05)",
   },
   unread: {
@@ -71,16 +69,19 @@ const DevicesList = ({ devices, selectedDevice }) => {
     >
       {renderDevices ? (
         <CustomScrollbars>
-          {renderDevices.map((device) => (
-            <Item
-              key={device.id}
-              id={device.id}
-              textPrimary={device.textPrimary}
-              textSecondary={device.textSecondary}
-              icon={device.icon}
-              active={device.active}
-            />
-          ))}
+          {renderDevices.map((device) => {
+            const { id, textPrimary, textSecondary, icon, active } = device;
+            return (
+              <Item
+                key={id}
+                id={id}
+                textPrimary={textPrimary}
+                textSecondary={textSecondary}
+                icon={icon}
+                active={active}
+              />
+            );
+          })}
         </CustomScrollbars>
       ) : (
         <Loader />
