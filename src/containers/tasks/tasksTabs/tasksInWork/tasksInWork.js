@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { tasksInWorkLoadingPack } from "./action";
+import { tasksInWorkLoadingPack } from "./tasksInWorkAction";
 
 import TasksInWorkView from "./view/TasksInWork";
 
 class TasksInWork extends Component {
   componentDidMount() {
-    console.log("componentDidMount TasksInWork");
     this.props.tasksInWorkLoadingPack();
   }
   render() {

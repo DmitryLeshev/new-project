@@ -1,26 +1,26 @@
 import { combineReducers } from "redux";
 import devicesListReducer from "./devicesList/devicesListReducer";
-import devicesBrowserReducer from "./devicesTabs/devicesBrowser/reducer";
-import devicesEntryReducer from "./devicesTabs/devicesEntry/reducer";
-import devicesHeaderReducer from "./devicesTabs/devicesHeader/reducer";
-import devicesInformationReducer from "./devicesTabs/devicesInformation/reducer";
-import devicesLogsReducer from "./devicesTabs/devicesLogs/reducer";
-import devicesPortsReducer from "./devicesTabs/devicesPorts/reducer";
-import devicesProcessesReducer from "./devicesTabs/devicesProcesses/reducer";
-import devicesProgramsReducer from "./devicesTabs/devicesPrograms/reducer";
-import devicesResponsibleReducer from "./devicesTabs/devicesResponsible/reducer";
-import devicesScreensReducer from "./devicesTabs/devicesScreens/reducer";
+import devicesInformationReducer from "./devicesTabs/devicesInformation/devicesInformationReducer";
+import devicesProgramsReducer from "./devicesTabs/devicesPrograms/devicesProgramsReducer";
+import devicesScreensReducer from "./devicesTabs/devicesScreens/devicesScreensReducer";
+import devicesPortsReducer from "./devicesTabs/devicesPorts/devicesPortsReducer";
+import devicesBrowserReducer from "./devicesTabs/devicesBrowser/devicesBrowserReducer";
+import devicesProcessesReducer from "./devicesTabs/devicesProcesses/devicesProcessesReducer";
+import devicesResponsibleReducer from "./devicesTabs/devicesResponsible/devicesResponsibleReducer";
+import devicesEntryReducer from "./devicesTabs/devicesEntry/devicesEntryReducer";
+import devicesHeaderReducer from "./devicesTabs/devicesHeader/devicesHeaderReducer";
+import devicesLogsReducer from "./devicesTabs/devicesLogs/devicesLogsReducer";
 
 export default combineReducers({
   list: devicesListReducer,
+  information: devicesInformationReducer,
+  programs: devicesProgramsReducer,
+  screens: devicesScreensReducer,
+  ports: devicesPortsReducer,
   browser: devicesBrowserReducer,
+  processes: devicesProcessesReducer,
+  responsible: devicesResponsibleReducer,
   entry: devicesEntryReducer,
   header: devicesHeaderReducer,
-  information: devicesInformationReducer,
   logs: devicesLogsReducer,
-  ports: devicesPortsReducer,
-  processes: devicesProcessesReducer,
-  programs: devicesProgramsReducer,
-  responsible: devicesResponsibleReducer,
-  screens: devicesScreensReducer,
 });

@@ -13,13 +13,21 @@ class DevicesPrograms extends Component {
   }
 
   render() {
-    let data = [];
-    return <DevicesProgramsView data={data} cellsName={cellsName} />;
+    return (
+      <DevicesProgramsView
+        loading={this.props.loading}
+        error={this.props.error}
+        list={this.props.list}
+        cellsName={cellsName}
+      />
+    );
   }
 }
 
 const mapStateToProps = (state) => {
   return {
+    loading: state.combineDevices.programs.loading,
+    error: state.combineDevices.programs.error,
     list: state.combineDevices.programs.list,
   };
 };

@@ -1,6 +1,12 @@
 import DevicesScreens from "./devicesScreens/devicesScreens";
 import DevicesInformation from "./devicesInformation/devicesInformation";
 import DevicesPrograms from "./devicesPrograms/devicesPrograms";
+import DevicesProcesses from "./devicesProcesses/devicesProcesses";
+import DevicesPorts from "./devicesPorts/devicesPorts";
+import DevicesBrowser from "./devicesBrowser/devicesBrowser";
+import DevicesResponsible from "./devicesResponsible/devicesResponsible";
+import DevicesLogs from "./devicesLogs/devicesLogs";
+import DevicesEntry from "./devicesEntry/devicesEntry";
 
 const tabs = [
   {
@@ -16,21 +22,21 @@ const tabs = [
     id: 2,
     component: DevicesScreens,
   },
-  { value: "ports", label: "Порты", id: 3, component: DevicesScreens },
-  { value: "browser", label: "Браузеры", id: 4, component: DevicesScreens },
-  { value: "processes", label: "Процессы", id: 5, component: DevicesScreens },
+  { value: "ports", label: "Порты", id: 3, component: DevicesPorts },
+  { value: "browser", label: "Браузеры", id: 4, component: DevicesBrowser },
+  { value: "processes", label: "Процессы", id: 5, component: DevicesProcesses },
   {
     value: "responsible",
     label: "Ответственные",
     id: 6,
-    component: DevicesScreens,
+    component: DevicesResponsible,
   },
-  { value: "logs", label: "Логи", id: 7, component: DevicesScreens },
+  { value: "logs", label: "Логи", id: 7, component: DevicesLogs },
   {
     value: "entry",
     label: "Точки авторизации",
     id: 8,
-    component: DevicesScreens,
+    component: DevicesEntry,
   },
 ];
 

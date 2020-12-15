@@ -2,7 +2,10 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 
-import { getDetailsScreens, screensChangeSelectedUser } from "./action";
+import {
+  getDetailsScreens,
+  screensChangeSelectedUser,
+} from "./devicesScreensAction";
 
 import DevicesScreensView from "./view/DevicesScreens";
 

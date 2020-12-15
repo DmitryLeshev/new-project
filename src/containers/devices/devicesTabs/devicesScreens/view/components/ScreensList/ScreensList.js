@@ -24,16 +24,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ScreenList = (props) => {
-  const { screenshots = [], loading } = props;
+const ScreenList = ({ screenshots, loading }) => {
   const classes = useStyles();
-
+  console.log("screenshots: ", screenshots);
   return (
     // <Scrollbars autoHide autoHideTimeout={1000} autoHideDuration={200}>
     <div className={classes.root}>
       <GridList className={classes.gridList} cols={5} spacing={8}>
-        {screenshots.map((screenshot) => (
-          <GridListTile key={screenshot.img}>
+        {screenshots.map((screenshot, index) => (
+          <GridListTile key={index}>
             <img
               src={`data:image/png;base64,${screenshot.img}`}
               alt={screenshot.date}

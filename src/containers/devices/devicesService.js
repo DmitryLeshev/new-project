@@ -1,6 +1,6 @@
 import query from "@assets/utils/query";
 
-class DevicesService {
+export default class DevicesService {
   getAllDevices = async () => {
     const res = await query("device/list");
     // console.log("getAllDevices", res);
@@ -31,7 +31,7 @@ class DevicesService {
   };
 
   getDeviceDetailsPorts = async (id) => {
-    return await query("device/getLanPorts", { device_id: id });
+    return await query("deviceInfo/getPorts", { id });
   };
 
   getDeviceDetailsBrowser = async (id) => {
@@ -39,9 +39,7 @@ class DevicesService {
   };
 
   getDeviceDetailsProcesses = async (id) => {
-    return await query("device/getLanProcesses", {
-      device_id: id,
-    });
+    return await query("deviceInfo/getProcesses", { id });
   };
 
   getDeviceDetailsResponsible = async (id) => {
@@ -72,20 +70,7 @@ class DevicesService {
     const response = await fetch("https://jsonplaceholder.typicode.com/photos");
     return await response.json();
   };
-
-  _transformProgram = (program) => {
-    return {
-      icon: program.icon,
-      instTst: new Date(program.inst_tst * 1000).toLocaleDateString(),
-      location: program.location,
-      name: program.name,
-      publisher: program.publisher,
-      version: program.version,
-    };
-  };
 }
-
-export default DevicesService;
 
 // const devicesService = new DevicesService();
 // devicesService.getAllDevices();

@@ -45,7 +45,7 @@ export function getProgramsList(id) {
           console.warn("Данные в процессе сбора");
           dispatch(programsLoaded());
         } else {
-          dispatch(programsAddList(res.msg));
+          dispatch(programsAddList(res.msg.map(_transformProgram)));
         }
       } else {
         console.log("Данные уже загружены");
@@ -56,3 +56,14 @@ export function getProgramsList(id) {
     }
   };
 }
+
+const _transformProgram = (program) => {
+  return {
+    icon: program.icon,
+    instTst: new Date(program.instTst * 1000).toLocaleDateString(),
+    location: program.location,
+    name: program.name,
+    publisher: program.publisher,
+    version: program.version,
+  };
+};

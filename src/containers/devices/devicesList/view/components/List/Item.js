@@ -95,7 +95,7 @@ const Item = ({ id, textPrimary, textSecondary, icon: Icon, active }) => {
       )}
       {textSecondary ? renderSecondaryText : renderText}
       <div className={classes.details}>
-        {id === 482 || id === 483 || id === 467 || id === 472 ? (
+        {id === 465 || id === 466 ? (
           <Label
             className={classes.unread}
             color={theme.palette.success.main}

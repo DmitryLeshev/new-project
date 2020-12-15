@@ -25,11 +25,10 @@ class DevicesTabs extends Component {
   };
 
   render() {
-    const { id, tab } = this.props.match.params;
     return (
       <DevicesTabsView
-        id={id}
-        tab={tab}
+        id={this.props.match.params.id}
+        tab={this.props.match.params.tab}
         device={this.getDeviceById()}
         tabsConfig={tabsConfig}
         selectedTab={this.getSelectedTab()}

@@ -3,7 +3,7 @@ import query from "@assets/utils/query";
 class TasksService {
   getTasks = async (progressId = 1) => {
     const res = await query("task/list", { progressId });
-    console.log("getAllTasks res.msg: ", res);
+    console.log("getTasks res: ", res);
     return res;
   };
 

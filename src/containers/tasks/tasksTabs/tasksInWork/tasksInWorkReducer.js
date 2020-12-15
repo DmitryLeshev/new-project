@@ -6,32 +6,24 @@ import {
 } from "./actionsTypes";
 
 const initionState = {
-  tasks: [],
-  loaded: false,
   loading: false,
+  loaded: false,
   error: false,
+  tasks: [],
 };
 
 const tasksInWorkReducer = (state = initionState, action) => {
   switch (action.type) {
-    case TASKS_IN_WORK_ADD_PACK: {
+    case TASKS_IN_WORK_LOADING:
       return {
         ...state,
-        tasks: [...state.tasks, ...action.payload],
-        loading: false,
+        loading: true,
       };
-    }
 
     case TASKS_IN_WORK_LOADED:
       return {
         ...state,
         loaded: true,
-      };
-
-    case TASKS_IN_WORK_LOADING:
-      return {
-        ...state,
-        loading: true,
       };
 
     case TASKS_IN_WORK_ERROR:
@@ -40,6 +32,14 @@ const tasksInWorkReducer = (state = initionState, action) => {
         error: true,
         loading: false,
       };
+
+    case TASKS_IN_WORK_ADD_PACK: {
+      return {
+        ...state,
+        tasks: [...state.tasks, ...action.payload],
+        loading: false,
+      };
+    }
 
     default:
       return state;

@@ -40,16 +40,15 @@ export function tasksInWorkLoadingPack() {
   return async (dispatch, getState) => {
     try {
       const { loaded } = getState().combineTasks.inWork;
-      console.log("state IN_WORK loaded: ", loaded);
       if (!loaded) {
         dispatch(tasksInWorkLoading());
-        const tasks = await tasksService.getTasks(TasksStatus.IN_WORK);
-        console.log("IN_WORK tasks: ", tasks);
-        if (tasks.length < 100) {
+        const res = await tasksService.getTasks(TasksStatus.IN_WORK);
+        console.log("IN_WORK tasks: ", res);
+        if (res.length < 100) {
           dispatch(tasksInWorkLoaded());
           console.log("Все таски 'IN_WORK' загрузились");
         }
-        dispatch(tasksInWorkAddPack(tasks));
+        dispatch(tasksInWorkAddPack(res));
       } else {
         console.log("Все таски 'IN_WORK' уже загружены");
       }

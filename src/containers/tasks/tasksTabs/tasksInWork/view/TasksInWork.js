@@ -9,7 +9,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TasksInWork = ({ tasks }) => {
-  console.log("TasksInWork: ", tasks);
   const classes = useStyles();
   return (
     <div className={classes.inWorksWrapper}>

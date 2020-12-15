@@ -130,7 +130,6 @@ export function getDetailsScreens(id, selectedUserValue = 0) {
     } catch (error) {
       console.log("throwing Error", error);
       dispatch(screensError());
-      throw error;
     }
   };
 }

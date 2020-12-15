@@ -8,10 +8,7 @@ import useStyles from "./styles";
 import EnhancedTableBody from "./EnhancedTableBody";
 import EnhancedTableHead from "./EnhancedTableHead";
 
-const EnhancedTable = (props) => {
-  const { data, cellsName } = props;
-  const { loaded = false, error = false, details = null } = data;
-
+const EnhancedTable = ({ loading, error, list, cellsName }) => {
   const classes = useStyles();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
@@ -22,7 +19,7 @@ const EnhancedTable = (props) => {
     setOrderBy(property);
   };
 
-  if (!loaded) {
+  if (loading) {
     return <Loader />;
   }
 
@@ -33,7 +30,6 @@ const EnhancedTable = (props) => {
   return (
     <TableContainer className={classes.tableContainer}>
       <Table
-        className={classes.table}
         aria-labelledby="tableTitle"
         size="medium"
         aria-label="enhanced table"
@@ -49,7 +45,7 @@ const EnhancedTable = (props) => {
         <EnhancedTableBody
           classes={classes}
           cellsName={cellsName}
-          data={details}
+          data={list}
           order={order}
           orderBy={orderBy}
           stableSort={stableSort}
