@@ -23,7 +23,7 @@ const navigationConfig = [
       },
       {
         title: "Задачи",
-        href: "/tasks",
+        href: "/tasks/in-work",
         icon: AssignmentIcon,
         label: () => (
           <Label color={colors.red[500]} shape="rounded">

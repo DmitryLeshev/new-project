@@ -1,24 +1,23 @@
 import {
-  TASKS_DEFERRED_LOADED,
   TASKS_DEFERRED_LOADING,
+  TASKS_DEFERRED_LOADED,
   TASKS_DEFERRED_ERROR,
   TASKS_DEFERRED_ADD_PACK,
 } from "./actionsTypes";
 
-import TasksStatus from "../../tasksStatusConfig";
+import { TasksStatus, _transformTask } from "../../tasksTabsConfig";
 import TasksService from "../../tasksService";
 
 const tasksService = new TasksService();
 
-export function tasksDeferredLoaded() {
-  return {
-    type: TASKS_DEFERRED_LOADED,
-  };
-}
-
 export function tasksDeferredLoading() {
   return {
     type: TASKS_DEFERRED_LOADING,
+  };
+}
+export function tasksDeferredLoaded() {
+  return {
+    type: TASKS_DEFERRED_LOADED,
   };
 }
 
@@ -40,18 +39,17 @@ export function tasksDeferredLoadingPack() {
   return async (dispatch, getState) => {
     try {
       const { loaded } = getState().combineTasks.deferred;
-      console.log("state DEFERRD loaded: ", loaded);
       if (!loaded) {
         dispatch(tasksDeferredLoading());
-        const tasks = await tasksService.getTasks(TasksStatus.DEFERRD);
-        console.log("DEFERRD tasks: ", tasks);
-        if (tasks.length < 100) {
+        const res = await tasksService.getTasks(TasksStatus.DEFERRED);
+        console.log("DEFERRED tasks: ", res);
+        if (res.length < 100) {
           dispatch(tasksDeferredLoaded());
-          console.log("Все таски 'DEFERRD' загрузились");
+          console.log("Все таски 'DEFERRED' загрузились");
         }
-        dispatch(tasksDeferredAddPack(tasks));
+        dispatch(tasksDeferredAddPack(res.map(_transformTask)));
       } else {
-        console.log("Все таски 'DEFERRD' уже загружены");
+        console.log("Все таски 'DEFERRED' уже загружены");
       }
     } catch (error) {
       console.error(error);

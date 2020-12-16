@@ -12,16 +12,18 @@ class DevicesTabs extends Component {
   getDeviceById = () => {
     const { id } = this.props.match.params;
     const { devices } = this.props;
-    if (devices) {
-      return devices.find((device) => device.id === Number(id));
-    } else return null;
+    if (!devices) return null;
+    return devices.find((device) => device.id === Number(id));
   };
 
   getSelectedTab = () => {
-    const { tab } = this.props.match.params;
-    if (tab) {
-      return tabsConfig.find((tabItem) => tabItem.value === tab).id;
-    } else return null;
+    const { tab, id } = this.props.match.params;
+    if (!tab) return null;
+    const selectedTab = tabsConfig.find((tabItem) => tabItem.value === tab);
+    if (selectedTab === undefined) {
+      return this.props.history.push(`/devices/${id}/information`);
+    }
+    return selectedTab.id;
   };
 
   render() {

@@ -1,18 +1,20 @@
 import React, { useState } from "react";
+import { withRouter } from "react-router";
+
 import clsx from "clsx";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core";
 
 import DetailsCard from "./components/DetailsCard";
 
 import imgDanger from "@assets/images/danger.png";
 import imgAvatar1 from "@assets/images/avatar_1.png";
-import imgAvatar2 from "@assets/images/avatar_2.png";
+// import imgAvatar2 from "@assets/images/avatar_2.png";
 
 const useStyles = makeStyles((theme) => ({
   card: {
     width: "100%",
     padding: theme.spacing(2, 3),
-    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(2),
     minHeight: "100px",
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[2],
@@ -26,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     width: "100%",
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(1),
   },
   title: {
     display: "flex",
@@ -50,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
   body: {
     display: "flex",
     flexDirection: "column",
-    marginBottom: theme.spacing(3),
+    marginBottom: theme.spacing(1),
   },
   tasks: {
     listStyle: "none",
@@ -68,6 +70,7 @@ const useStyles = makeStyles((theme) => ({
   taskValue: {
     ...theme.typography.body1,
     marginLeft: theme.spacing(2),
+    color: theme.palette.error.light,
   },
   footer: {
     display: "flex",
@@ -108,13 +111,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TaskCard = () => {
+const TaskCard = ({ task, selectedTask, match, history }) => {
+  const { id, type, crt, entityType, entityId, responsible, createTst } = task;
+  const [open, setOpen] = useState(
+    selectedTask && selectedTask.id === id ? true : false
+  );
   const classes = useStyles();
 
-  const [open, setOpen] = useState(false);
+  console.log("selectedTask: ", selectedTask);
+  console.log("id: ", id);
+  console.log("open: ", open);
 
   function openCard() {
-    setOpen(!open);
+    history.push(`/tasks/${match.params.status}/${id}`);
+  }
+
+  function closeCard() {
+    setOpen(false);
+    history.push(`/tasks/${match.params.status}`);
   }
 
   const isCloseCard = (
@@ -125,46 +139,42 @@ const TaskCard = () => {
       <div className={classes.header}>
         <h3 className={classes.title}>
           <i className={classes.icon} />
-          Слабый пароль точки доступа
+          {type}
         </h3>
-        <p className={classes.hash}>#00000010</p>
+        <p className={classes.hash}>#{id}</p>
       </div>
       <div className={classes.body}>
         <ul className={classes.tasks}>
           <li className={classes.task}>
             <p className={classes.taskText}>Критичность задачи:</p>
-            <span className={classes.taskValue}>10/10</span>
+            <span className={classes.taskValue}>{crt}</span>/10
           </li>
           <li className={classes.task}>
-            <p className={classes.taskText}>Устройства:</p>
-            <span className={classes.taskValue}>10/10</span>
+            <p className={classes.taskText}>Устройство {entityType}: </p>
+            <span className={classes.taskValue}></span>
+            Entity Id: {entityId}
           </li>
         </ul>
       </div>
       <div className={classes.footer}>
         <p className={classes.responsible}>Ответственные: </p>
         <ul className={classes.users}>
-          <li className={classes.user}>
-            <p className={classes.userText}>
-              <i
-                className={classes.userIcon}
-                style={{ backgroundImage: `url(${imgAvatar1})` }}
-              />
-              Admin
-            </p>
-          </li>
-          <li className={classes.user}>
-            <p className={classes.userText}>
-              <i
-                className={classes.userIcon}
-                style={{ backgroundImage: `url(${imgAvatar2})` }}
-              />
-              Semizar
-            </p>
-          </li>
+          {responsible.map((r) => {
+            return (
+              <li key={r} className={classes.user}>
+                <p className={classes.userText}>
+                  <i
+                    className={classes.userIcon}
+                    style={{ backgroundImage: `url(${imgAvatar1})` }}
+                  />
+                  id: {r}
+                </p>
+              </li>
+            );
+          })}
         </ul>
         <p className={classes.info}>
-          Обнаружено: модуль аудита wifi 17:38 12.01.2020
+          Обнаружено: модуль аудита wifi {createTst}
         </p>
       </div>
     </div>
@@ -172,9 +182,10 @@ const TaskCard = () => {
 
   return (
     <React.Fragment>
-      {open ? <DetailsCard openCard={openCard} /> : isCloseCard}
+      {isCloseCard}
+      <DetailsCard open={open} closeCard={closeCard} />
     </React.Fragment>
   );
 };
 
-export default TaskCard;
+export default withRouter(TaskCard);

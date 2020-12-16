@@ -6,8 +6,6 @@ import { Page } from "@components";
 
 import RightBar from "./components/RightBar/RightBar";
 import TabsBar from "./components/TabsBar/TabsBar";
-import TabItem from "./components/TabItem/TabItem";
-// import CustomScrollbars from "../../../components/CustomScrollbars/CustomScrollbars";
 
 const useStyles = makeStyles((theme) => ({
   tasks: {
@@ -19,36 +17,42 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
   },
   tabsBar: {
-    width: `calc(100% - ${theme.spacing(3)})`,
-    margin: theme.spacing(3),
+    margin: theme.spacing(3, 3, 0),
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[2],
+    zIndex: 1000,
   },
   tabContent: {
     display: "flex",
     flexDirection: "column",
     width: `calc(100% - ${theme.spacing(3)})`,
     margin: theme.spacing(3),
-
-    // margin: theme.spacing(3, 0),
     height: "100%",
   },
   rightBar: {
-    // display: "none",
-    position: "absolute",
-    top: theme.spacing(3),
+    position: "fixed",
+    top: theme.spacing(3) + 64, // top bar (~64px) + отступ
     right: theme.spacing(3),
-    width: `calc(300 - ${theme.spacing(2.5)})`,
-    height: `calc(100% - ${theme.spacing(3)}px)`,
+    width: `calc(300px - ${theme.spacing(3)}px)`,
+    height: `calc(100vh - ${theme.spacing(3) + 64}px)`,
     padding: theme.spacing(2, 3),
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[2],
   },
+  tabItem: {
+    flexGrow: 1,
+    margin: theme.spacing(0, 3, 3),
+  },
 }));
 
-const Tasks = ({ tabs }) => {
+const Tasks = ({
+  tabsConfig,
+  paramsStatus,
+  paramsId,
+  selectedTab,
+  getTaskById,
+}) => {
   const classes = useStyles();
-
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -61,24 +65,27 @@ const Tasks = ({ tabs }) => {
         className={classes.tabsBar}
         value={value}
         handleChange={handleChange}
-        tabs={tabs}
+        tabs={tabsConfig}
+        selectedTab={selectedTab}
       />
-      {/* <CustomScrollbars> */}
-      {tabs.map((tab) => {
-        const { label, id, component: Component } = tab;
+      {tabsConfig.map((tabItem) => {
+        const { value, label, id, component: Component } = tabItem;
+        if (value !== paramsStatus) return null;
         return (
-          <TabItem
-            key={label}
-            className={classes.tabContent}
-            value={value}
-            index={id}
-            title={label}
+          <Page
+            key={id}
+            className={classes.tabItem}
+            title={`Задачи: ${label}`}
+            scroll={true}
           >
-            <Component />
-          </TabItem>
+            <Component
+              paramsId={paramsId}
+              paramsStatus={paramsStatus}
+              getTaskById={getTaskById}
+            />
+          </Page>
         );
       })}
-      {/* </CustomScrollbars> */}
       <RightBar className={classes.rightBar} />
     </Page>
   );

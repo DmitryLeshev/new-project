@@ -1,29 +1,29 @@
 import {
-  TASKS_COMPLETED_LOADED,
   TASKS_COMPLETED_LOADING,
+  TASKS_COMPLETED_LOADED,
   TASKS_COMPLETED_ERROR,
   TASKS_COMPLETED_ADD_PACK,
 } from "./actionsTypes";
 
 const initionState = {
-  list: [],
-  loaded: false,
+  tasks: [],
   loading: false,
+  loaded: false,
   error: false,
 };
 
 const tasksCompletedReducer = (state = initionState, action) => {
   switch (action.type) {
-    case TASKS_COMPLETED_LOADED:
-      return {
-        ...state,
-        loaded: true,
-      };
-
     case TASKS_COMPLETED_LOADING:
       return {
         ...state,
         loading: true,
+      };
+
+    case TASKS_COMPLETED_LOADED:
+      return {
+        ...state,
+        loaded: true,
       };
 
     case TASKS_COMPLETED_ERROR:
@@ -36,7 +36,7 @@ const tasksCompletedReducer = (state = initionState, action) => {
     case TASKS_COMPLETED_ADD_PACK: {
       return {
         ...state,
-        list: [...state.list, ...action.payload],
+        tasks: [...state.tasks, ...action.payload],
         loading: false,
       };
     }

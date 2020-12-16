@@ -1,9 +1,23 @@
 import React from "react";
 
-const TasksCanceled = () => {
+import { makeStyles } from "@material-ui/core";
+
+import TaskCard from "../../../view/components/TaskCard/TaskCard";
+
+const useStyles = makeStyles((theme) => ({
+  inWorksWrapper: {},
+}));
+
+const TasksCanceled = ({ tasks, selectedTask }) => {
+  const classes = useStyles();
   return (
-    <div>
-      <h1>TasksCanceled</h1>
+    <div className={classes.inWorksWrapper}>
+      {tasks &&
+        tasks.map((task) => {
+          return (
+            <TaskCard key={task.id} task={task} selectedTask={selectedTask} />
+          );
+        })}
     </div>
   );
 };

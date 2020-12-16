@@ -4,13 +4,12 @@ const useStyles = makeStyles((theme) => ({
   detailsCard: {
     position: "absolute",
     zIndex: 1200,
-    top: theme.spacing(2),
-    bottom: theme.spacing(1.5),
+    top: theme.spacing(3) + 64, // ... + topbar
+    bottom: theme.spacing(3),
     right: theme.spacing(3),
-    left: theme.spacing(3),
+    left: theme.spacing(3) + theme.drawer.width, // ... + navbar
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[2],
-    transition: "all 0.3s ease-out",
   },
   header: {
     display: "flex",
@@ -18,9 +17,6 @@ const useStyles = makeStyles((theme) => ({
     minHeight: 50,
     padding: theme.spacing(0, 3),
     borderBottom: `1px solid ${theme.palette.divider}`,
-    // position: "relative",
-    // zIndex: 1000,
-    // boxShadow: theme.shadows[2],
   },
   buttonBack: {
     width: 40,
@@ -89,13 +85,16 @@ const useStyles = makeStyles((theme) => ({
     height: "30px",
     padding: theme.spacing(0, 3),
     borderTop: `1px solid ${theme.palette.divider}`,
-    // position: "relative",
-    // zIndex: 1000,
-    // boxShadow: theme.shadows[2],
   },
   responsible: {},
-  responsibleUsers: {},
-  responsibleUser: {},
+  responsibleUsers: {
+    marginLeft: theme.spacing(2),
+    padding: 0,
+  },
+  responsibleUser: {
+    margin: 0,
+    padding: 0,
+  },
   responsibleUserAvatar: {
     width: 20,
     height: 20,

@@ -10,7 +10,12 @@ class TasksInWork extends Component {
     this.props.tasksInWorkLoadingPack();
   }
   render() {
-    return <TasksInWorkView tasks={this.props.tasks} />;
+    return (
+      <TasksInWorkView
+        tasks={this.props.tasks}
+        selectedTask={this.props.getTaskById(this.props.tasks)}
+      />
+    );
   }
 }
 

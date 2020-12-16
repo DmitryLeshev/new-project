@@ -1,6 +1,6 @@
 import query from "@assets/utils/query";
 
-class TasksService {
+export default class TasksService {
   getTasks = async (progressId = 1) => {
     const res = await query("task/list", { progressId });
     console.log("getTasks res: ", res);
@@ -13,9 +13,3 @@ class TasksService {
     return res;
   };
 }
-
-export default TasksService;
-
-// const tasksService = new TasksService();
-// tasksService.getTasks();
-// tasksService.getTaskById(41);

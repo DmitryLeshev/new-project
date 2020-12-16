@@ -8,13 +8,17 @@ const useStyles = makeStyles((theme) => ({
   inWorksWrapper: {},
 }));
 
-const TasksInWork = ({ tasks }) => {
+const TasksInWork = ({ tasks, selectedTask }) => {
   const classes = useStyles();
+
   return (
     <div className={classes.inWorksWrapper}>
-      {tasks.map((task) => {
-        return <TaskCard key={task.id} task={task} />;
-      })}
+      {tasks &&
+        tasks.map((task) => {
+          return (
+            <TaskCard key={task.id} task={task} selectedTask={selectedTask} />
+          );
+        })}
     </div>
   );
 };

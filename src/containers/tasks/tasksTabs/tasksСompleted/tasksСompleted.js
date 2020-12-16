@@ -1,14 +1,35 @@
 import React, { Component } from "react";
 
-import TasksСompletedVeiw from "./view/TasksСompleted";
+import { connect } from "react-redux";
+import { tasksCompletedLoadingPack } from "./tasksСompletedAction";
+
+import TasksСompletedView from "./view/TasksСompleted";
 
 class TasksСompleted extends Component {
   componentDidMount() {
-    console.log("componentDidMount TasksСompleted");
+    console.log("componentDidMount");
+    this.props.tasksCompletedLoadingPack();
   }
   render() {
-    return <TasksСompletedVeiw />;
+    return (
+      <TasksСompletedView
+        tasks={this.props.tasks}
+        selectedTask={this.props.getTaskById(this.props.tasks)}
+      />
+    );
   }
 }
 
-export default TasksСompleted;
+const mapStateToProps = (state) => {
+  return {
+    tasks: state.combineTasks.completed.tasks,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    tasksCompletedLoadingPack: () => dispatch(tasksCompletedLoadingPack()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TasksСompleted);

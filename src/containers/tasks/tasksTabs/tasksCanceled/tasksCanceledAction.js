@@ -5,7 +5,7 @@ import {
   TASKS_CANCELED_ADD_PACK,
 } from "./actionsTypes";
 
-import TasksStatus from "../../tasksStatusConfig";
+import { TasksStatus, _transformTask } from "../../tasksTabsConfig";
 import TasksService from "../../tasksService";
 
 const tasksService = new TasksService();
@@ -49,7 +49,7 @@ export function tasksCanceledLoadingPack() {
           dispatch(tasksCanceledLoaded());
           console.log("Все таски 'CANCELED' загрузились");
         }
-        dispatch(tasksCanceledAddPack(tasks));
+        dispatch(tasksCanceledAddPack(tasks.map(_transformTask)));
       } else {
         console.log("Все таски 'CANCELED' уже загружены");
       }

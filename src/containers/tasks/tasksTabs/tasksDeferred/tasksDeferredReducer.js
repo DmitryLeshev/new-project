@@ -1,29 +1,29 @@
 import {
-  TASKS_DEFERRED_LOADED,
   TASKS_DEFERRED_LOADING,
+  TASKS_DEFERRED_LOADED,
   TASKS_DEFERRED_ERROR,
   TASKS_DEFERRED_ADD_PACK,
 } from "./actionsTypes";
 
 const initionState = {
-  list: [],
-  loaded: false,
+  tasks: [],
   loading: false,
+  loaded: false,
   error: false,
 };
 
 const tasksDeferredReducer = (state = initionState, action) => {
   switch (action.type) {
-    case TASKS_DEFERRED_LOADED:
-      return {
-        ...state,
-        loaded: true,
-      };
-
     case TASKS_DEFERRED_LOADING:
       return {
         ...state,
         loading: true,
+      };
+
+    case TASKS_DEFERRED_LOADED:
+      return {
+        ...state,
+        loaded: true,
       };
 
     case TASKS_DEFERRED_ERROR:
@@ -36,7 +36,7 @@ const tasksDeferredReducer = (state = initionState, action) => {
     case TASKS_DEFERRED_ADD_PACK: {
       return {
         ...state,
-        list: [...state.list, ...action.payload],
+        tasks: [...state.tasks, ...action.payload],
         loading: false,
       };
     }

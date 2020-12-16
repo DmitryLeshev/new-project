@@ -1,14 +1,14 @@
 import {
-  TASKS_CANCELED_LOADED,
   TASKS_CANCELED_LOADING,
+  TASKS_CANCELED_LOADED,
   TASKS_CANCELED_ERROR,
   TASKS_CANCELED_ADD_PACK,
 } from "./actionsTypes";
 
 const initionState = {
-  list: [],
-  loaded: false,
+  tasks: [],
   loading: false,
+  loaded: false,
   error: false,
 };
 
@@ -36,7 +36,7 @@ const tasksCanceledReducer = (state = initionState, action) => {
     case TASKS_CANCELED_ADD_PACK: {
       return {
         ...state,
-        list: [...state.list, ...action.payload],
+        tasks: [...state.tasks, ...action.payload],
         loading: false,
       };
     }

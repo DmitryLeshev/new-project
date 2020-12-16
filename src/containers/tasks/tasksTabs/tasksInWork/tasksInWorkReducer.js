@@ -6,10 +6,10 @@ import {
 } from "./actionsTypes";
 
 const initionState = {
+  tasks: [],
   loading: false,
   loaded: false,
   error: false,
-  tasks: [],
 };
 
 const tasksInWorkReducer = (state = initionState, action) => {

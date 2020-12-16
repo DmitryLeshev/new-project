@@ -5,7 +5,7 @@ import {
   TASKS_IN_WORK_ADD_PACK,
 } from "./actionsTypes";
 
-import TasksStatus from "../../tasksStatusConfig";
+import { TasksStatus, _transformTask } from "../../tasksTabsConfig";
 import TasksService from "../../tasksService";
 
 const tasksService = new TasksService();
@@ -48,7 +48,7 @@ export function tasksInWorkLoadingPack() {
           dispatch(tasksInWorkLoaded());
           console.log("Все таски 'IN_WORK' загрузились");
         }
-        dispatch(tasksInWorkAddPack(res));
+        dispatch(tasksInWorkAddPack(res.map(_transformTask)));
       } else {
         console.log("Все таски 'IN_WORK' уже загружены");
       }

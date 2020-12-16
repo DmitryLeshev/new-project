@@ -1,9 +1,23 @@
 import React from "react";
 
-const TasksDeferred = () => {
+import { makeStyles } from "@material-ui/core";
+
+import TaskCard from "../../../view/components/TaskCard/TaskCard";
+
+const useStyles = makeStyles((theme) => ({
+  inWorksWrapper: {},
+}));
+
+const TasksDeferred = ({ tasks, selectedTask }) => {
+  const classes = useStyles();
   return (
-    <div>
-      <h1>TasksDeferred</h1>
+    <div className={classes.inWorksWrapper}>
+      {tasks &&
+        tasks.map((task) => {
+          return (
+            <TaskCard key={task.id} task={task} selectedTask={selectedTask} />
+          );
+        })}
     </div>
   );
 };

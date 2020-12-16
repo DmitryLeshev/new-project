@@ -53,6 +53,16 @@ const useRoutes = (isAuthenticated) => {
           {
             path: "/tasks",
             exact: true,
+            component: () => <Redirect to="/tasks/in-work" />,
+          },
+          {
+            path: "/tasks/:status",
+            exact: true,
+            component: Tasks,
+          },
+          {
+            path: "/tasks/:status/:id",
+            exact: true,
             component: Tasks,
           },
           {
