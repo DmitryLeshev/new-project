@@ -40,6 +40,7 @@ export function getPortsList(id) {
       if (!loaded) {
         dispatch(portsLoading());
         const res = await devicesService.getDeviceDetailsPorts(id);
+        console.log("res: ", res);
         if (!res.status) throw new Error("Не корректный запрос");
         if (!res.msg.length) {
           console.warn("Данные в процессе сбора");
@@ -57,3 +58,14 @@ export function getPortsList(id) {
     }
   };
 }
+
+// const _transformPort = (program) => {
+//   return {
+//     icon: program.icon,
+//     instTst: new Date(program.instTst * 1000).toLocaleDateString(),
+//     location: program.location,
+//     name: program.name,
+//     publisher: program.publisher,
+//     version: program.version,
+//   };
+// };

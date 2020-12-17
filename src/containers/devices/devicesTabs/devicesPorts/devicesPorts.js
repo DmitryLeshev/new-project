@@ -8,7 +8,6 @@ import cellsName from "./portsTableConfig";
 
 class DevicesPorts extends Component {
   componentDidMount() {
-    console.log("Loading data...");
     this.props.getPortsList(this.props.id);
   }
 

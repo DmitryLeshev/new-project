@@ -9,7 +9,7 @@ import { ScreensList, ScreensFilters } from "./components";
 const useStyles = makeStyles((theme) => ({
   container: {
     boxSizing: "border-box",
-    // padding: theme.spacing(3),
+    // height: "100%",
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[4],
   },

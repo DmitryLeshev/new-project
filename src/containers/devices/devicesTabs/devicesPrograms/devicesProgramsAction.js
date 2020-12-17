@@ -40,6 +40,7 @@ export function getProgramsList(id) {
       if (!loaded) {
         dispatch(programsLoading());
         const res = await devicesService.getDeviceDetailsPrograms(id);
+        console.log("res: ", res);
         if (!res.status) throw new Error("Не корректный запрос");
         if (!res.msg.length) {
           console.warn("Данные в процессе сбора");

@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
     width: `calc(100% - ${theme.spacing(6)}px)`,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[3],
-    margin: theme.spacing(0, 3, 3),
+    margin: theme.spacing(0, 3),
   },
 }));
 

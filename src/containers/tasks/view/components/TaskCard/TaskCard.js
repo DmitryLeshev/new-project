@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { withRouter } from "react-router";
+import { useTranslation } from "react-i18next";
 
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core";
@@ -117,7 +118,7 @@ const TaskCard = ({ task, selectedTask, match, history }) => {
     selectedTask && selectedTask.id === id ? true : false
   );
   const classes = useStyles();
-
+  const { t } = useTranslation();
   console.log("selectedTask: ", selectedTask);
   console.log("id: ", id);
   console.log("open: ", open);
@@ -139,7 +140,7 @@ const TaskCard = ({ task, selectedTask, match, history }) => {
       <div className={classes.header}>
         <h3 className={classes.title}>
           <i className={classes.icon} />
-          {type}
+          {t(`task-title.${type}`)}
         </h3>
         <p className={classes.hash}>#{id}</p>
       </div>

@@ -1,6 +1,8 @@
 import React, { useState, forwardRef } from "react";
 import { NavLink as RouterLink } from "react-router-dom";
 
+import { useTranslation } from "react-i18next";
+
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/styles";
 import { ListItem, Button, Collapse } from "@material-ui/core";
@@ -72,6 +74,7 @@ const useStyles = makeStyles((theme) => ({
 
 const NavigationListItem = (props) => {
   const {
+    i18nkey,
     title,
     href,
     depth,
@@ -83,6 +86,7 @@ const NavigationListItem = (props) => {
 
   const classes = useStyles();
   const [open, setOpen] = useState(openProp);
+  const { t } = useTranslation();
 
   const handleToggle = () => {
     setOpen((open) => !open);
@@ -125,7 +129,7 @@ const NavigationListItem = (props) => {
           to={href}
         >
           {Icon && <Icon className={classes.icon} />}
-          {title}
+          {t(`sidebar.${i18nkey}`)}
           {Label && (
             <span className={classes.label}>
               <Label />

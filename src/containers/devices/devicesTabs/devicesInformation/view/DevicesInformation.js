@@ -8,6 +8,8 @@ import {
 } from "@material-ui/core";
 import clsx from "clsx";
 
+import { downloadCertificate } from "@src/assets/utils/downloadCertificate";
+
 const useStyles = makeStyles((theme) => ({
   container: {
     boxSizing: "border-box",
@@ -123,6 +125,7 @@ const DevicesInformation = () => {
                   variant="outlined"
                   size="large"
                   color="primary"
+                  onClick={() => downloadCertificate(466, "Alfa, Inc")}
                 >
                   {listItem.button}
                 </Button>

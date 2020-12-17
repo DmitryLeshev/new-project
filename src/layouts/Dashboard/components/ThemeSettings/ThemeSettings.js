@@ -1,6 +1,8 @@
 import React from "react";
 import { Scrollbars } from "react-custom-scrollbars";
 
+import { useTranslation } from "react-i18next";
+
 import { connect } from "react-redux";
 import {
   themeSettingsOpen,
@@ -11,7 +13,7 @@ import {
 
 import { ContentsTitle, PaletteColors, ModesThemes } from "./components";
 
-import { Divider, Drawer, makeStyles } from "@material-ui/core";
+import { Button, Divider, Drawer, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,6 +39,12 @@ const ThemeSettings = (props) => {
   } = props;
   const classes = useStyles();
 
+  const { t, i18n } = useTranslation();
+
+  const changeLanguage = (language) => {
+    i18n.changeLanguage(language);
+  };
+
   return (
     <Drawer anchor={"right"} open={themeSettings} onClose={themeSettingsClosed}>
       <div className={classes.root}>
@@ -51,6 +59,24 @@ const ThemeSettings = (props) => {
             <Divider />
 
             <ModesThemes darkModeChange={darkModeChange} darkMode={darkMode} />
+
+            <Button
+              variant="outlined"
+              color="secondary"
+              onClick={() => changeLanguage("en")}
+            >
+              EN
+            </Button>
+            <Button
+              variant="outlined"
+              color="secondary"
+              onClick={() => changeLanguage("ru")}
+            >
+              RU
+            </Button>
+
+            <div>{t("device-page.protected")}</div>
+            <div>{t("user-page.login")}</div>
           </div>
         </Scrollbars>
       </div>

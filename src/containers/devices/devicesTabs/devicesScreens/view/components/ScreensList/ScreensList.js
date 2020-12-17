@@ -28,7 +28,6 @@ const ScreenList = ({ screenshots, loading }) => {
   const classes = useStyles();
   console.log("screenshots: ", screenshots);
   return (
-    // <Scrollbars autoHide autoHideTimeout={1000} autoHideDuration={200}>
     <div className={classes.root}>
       <GridList className={classes.gridList} cols={5} spacing={8}>
         {screenshots.map((screenshot, index) => (
@@ -55,7 +54,6 @@ const ScreenList = ({ screenshots, loading }) => {
         ))}
       </GridList>
     </div>
-    // {/* </Scrollbars> */}
   );
 };
 

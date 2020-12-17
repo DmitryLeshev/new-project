@@ -10,18 +10,19 @@ import StorageIcon from "@material-ui/icons/Storage";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import ListAltIcon from "@material-ui/icons/ListAlt";
 import SettingsIcon from "@material-ui/icons/Settings";
-import AppsIcon from "@material-ui/icons/Apps";
 
 const navigationConfig = [
   {
     title: "Pages",
     pages: [
       {
-        title: "Главня",
+        i18nkey: "home",
+        title: "Главная",
         href: "/dashboard",
         icon: HomeIcon,
       },
       {
+        i18nkey: "tasks",
         title: "Задачи",
         href: "/tasks/in-work",
         icon: AssignmentIcon,
@@ -32,44 +33,40 @@ const navigationConfig = [
         ),
       },
       {
+        i18nkey: "devices",
         title: "Устройства",
         href: "/devices",
         icon: DevicesIcon,
       },
       {
+        i18nkey: "dictionaries",
         title: "Словари",
         href: "/dictionaries",
         icon: ListIcon,
       },
       {
+        i18nkey: "tools",
         title: "Инструменты",
         href: "/tools",
         icon: BuildIcon,
       },
       {
+        i18nkey: "vulndb",
         title: "База уязвимостей",
         href: "/vulnerability-database",
         icon: StorageIcon,
       },
       {
+        i18nkey: "users",
         title: "Пользователи",
         href: "/users",
         icon: AccountCircleIcon,
       },
       {
+        i18nkey: "reports",
         title: "Отчеты",
         href: "/reports",
         icon: ListAltIcon,
-      },
-      {
-        title: "Компоненты",
-        href: "/app-components",
-        icon: AppsIcon,
-        label: () => (
-          <Label variant="outline" color={colors.green[500]}>
-            New
-          </Label>
-        ),
       },
     ],
   },
@@ -77,6 +74,7 @@ const navigationConfig = [
     title: "Support",
     pages: [
       {
+        i18nkey: "settings",
         title: "Настройки",
         href: "/settings",
         icon: SettingsIcon,

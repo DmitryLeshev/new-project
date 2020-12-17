@@ -40,13 +40,14 @@ export function getProcessesList(id) {
       if (!loaded) {
         dispatch(processesLoading());
         const res = await devicesService.getDeviceDetailsProcesses(id);
+        console.log("res: ", res);
+
         if (!res.status) throw new Error("Не корректный запрос");
         if (!res.msg.length) {
           console.warn("Данные в процессе сбора");
           dispatch(processesLoaded());
         } else {
-          console.log(res.msg);
-          dispatch(processesAddList(res.msg));
+          dispatch(processesAddList(res.msg.map(_transformProcess)));
         }
       } else {
         console.log("Данные уже загружены");
@@ -57,3 +58,14 @@ export function getProcessesList(id) {
     }
   };
 }
+
+const _transformProcess = (process) => {
+  return {
+    name: process.name,
+    user: process.user,
+    path: process.path,
+    pid: process.pid,
+    startTst: new Date(process.startTst * 1000).toLocaleDateString(),
+    stopTst: new Date(process.stopTst * 1000).toLocaleDateString(),
+  };
+};

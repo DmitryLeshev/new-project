@@ -30,16 +30,15 @@ const EnhancedTableBody = (props) => {
           <TableRow key={index} hover role="checkbox" tabIndex={-1}>
             {cellsName.map((cellName, index) => {
               const srcIcon = "data:image/png;base64," + row.icon;
-              const renderIcon =
-                row.icon !== "" ? (
-                  <img
-                    className={classes.tableCellIcon}
-                    src={srcIcon}
-                    alt="icon"
-                  />
-                ) : (
-                  <AddToQueueIcon className={classes.tableCellIcon} />
-                );
+              const renderIcon = row.icon ? (
+                <img
+                  className={classes.tableCellIcon}
+                  src={srcIcon}
+                  alt="icon"
+                />
+              ) : (
+                <AddToQueueIcon className={classes.tableCellIcon} />
+              );
 
               const renderCell = cellName.icon ? (
                 <div className={classes.tableCellContent}>

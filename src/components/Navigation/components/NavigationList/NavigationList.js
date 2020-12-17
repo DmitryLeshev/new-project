@@ -35,6 +35,7 @@ const reduceChildRoutes = (props) => {
         label={page.label}
         open={Boolean(open)}
         title={page.title}
+        i18nkey={page.i18nkey}
       >
         <NavigationList
           depth={depth + 1}
@@ -52,6 +53,7 @@ const reduceChildRoutes = (props) => {
         key={page.title}
         label={page.label}
         title={page.title}
+        i18nkey={page.i18nkey}
       />
     );
   }
