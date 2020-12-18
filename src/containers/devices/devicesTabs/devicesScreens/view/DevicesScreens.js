@@ -2,7 +2,6 @@ import React from "react";
 
 import { makeStyles, Divider } from "@material-ui/core";
 
-import { LazyLoad } from "@src/components";
 import ErrorIndicator from "@src/containers/errors/view/ErrorIndicator";
 import { ScreensList, ScreensFilters } from "./components";
 
@@ -39,9 +38,11 @@ const DevicesScreens = (props) => {
       {error ? (
         <ErrorIndicator />
       ) : (
-        <LazyLoad test={appendItems}>
-          <ScreensList loading={loading} screenshots={screenshots} />
-        </LazyLoad>
+        <ScreensList
+          loading={loading}
+          screenshots={screenshots}
+          appendItems={appendItems}
+        />
       )}
     </div>
   );

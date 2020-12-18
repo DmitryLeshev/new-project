@@ -11,7 +11,7 @@ class LazyLoad extends Component {
   };
 
   appendItems = () => {
-    this.props.test();
+    this.props.appendItems();
   };
 
   onScroll = throttle((scrollTop, scrollContainerRect) => {

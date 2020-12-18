@@ -1,14 +1,18 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { withRouter } from "react-router";
 
 import { compose } from "redux";
+import { connect } from "react-redux";
+import { resetAllDevices } from "./devicesTabsAction";
 
 import DevicesTabsView from "./view/DevicesTabs";
 
 import tabsConfig from "./devicesTabsConfig";
 
 class DevicesTabs extends Component {
+  state = {
+    selectedTab: 0,
+  };
   getDeviceById = () => {
     const { id } = this.props.match.params;
     const { devices } = this.props;
@@ -25,6 +29,19 @@ class DevicesTabs extends Component {
     }
     return selectedTab.id;
   };
+
+  componentDidMount() {
+    const selectedTab = this.getSelectedTab();
+    this.setState({ selectedTab });
+  }
+
+  componentDidUpdate(prevProps) {
+    console.log("Devices Tabs componentDidUpdate...");
+    if (prevProps.match.params.id !== this.props.match.params.id) {
+      console.log("Switch device");
+      this.props.resetAllDevices();
+    }
+  }
 
   render() {
     return (
@@ -47,7 +64,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // getDevicesList: () => dispatch(getDevicesList()),
+    resetAllDevices: () => dispatch(resetAllDevices()),
   };
 };
 

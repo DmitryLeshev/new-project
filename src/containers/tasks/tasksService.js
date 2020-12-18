@@ -9,7 +9,7 @@ export default class TasksService {
 
   getTaskById = async (id, lang = "ru") => {
     const res = await query("task/get", { id, lang });
-    console.log("getTaskById res: ", res);
+    console.log("getTaskById res: ", res, "id: ", id);
     return res;
   };
 }

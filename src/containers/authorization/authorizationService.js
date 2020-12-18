@@ -12,19 +12,19 @@ class AuthorizationService {
   };
 
   loginAuth = async (login, password) => {
-    console.log("loginAuth start");
+    // console.log("loginAuth start");
     const res = await query("auth/login", { login, password });
-    // console.log("loginAuth res: ", res);
-    console.log("loginAuth end");
+    console.log("loginAuth res: ", res);
+    // console.log("loginAuth end");
     return res;
     // return await query("auth/login", { login, password });
   };
 
   logoutAuth = async () => {
-    console.log("logoutAuth start");
+    // console.log("logoutAuth start");
     const res = await query("auth/logout");
-    // console.log("logoutAuth res: ", res);
-    console.log("logoutAuth end");
+    console.log("logoutAuth res: ", res);
+    // console.log("logoutAuth end");
     return res;
     // return await query("auth/logout");
   };

@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { getProgramsList } from "./devicesProgramsAction";
+import { getProgramsList, programsReset } from "./devicesProgramsAction";
 
 import DevicesProgramsView from "./view/DevicesPrograms";
 import cellsName from "./programsTableConfig";
 
 class DevicesPrograms extends Component {
   componentDidMount() {
-    console.log("Loading data...");
+    console.log("componentDidMount...");
     this.props.getProgramsList(this.props.id);
   }
 
@@ -35,6 +35,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getProgramsList: (id) => dispatch(getProgramsList(id)),
+    programsReset: () => dispatch(programsReset()),
   };
 };
 

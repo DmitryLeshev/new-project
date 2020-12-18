@@ -2,14 +2,15 @@ import {
   PORTS_LOADING,
   PORTS_LOADED,
   PORTS_ERROR,
+  PORTS_RESET,
   PORTS_ADD_LIST,
 } from "./actionsTypes";
 
 const initionState = {
+  list: [],
   loading: false,
   loaded: false,
   error: false,
-  list: [],
 };
 
 const devicesPortsReducer = (state = initionState, action) => {
@@ -42,6 +43,15 @@ const devicesPortsReducer = (state = initionState, action) => {
         ...state,
         loading: false,
         list: [...state.list, ...action.payload],
+      };
+    }
+
+    case PORTS_RESET: {
+      return {
+        loading: false,
+        loaded: false,
+        error: false,
+        list: [],
       };
     }
 

@@ -7,16 +7,17 @@ import {
   SCREENS_LOADED,
   SCREENS_ERROR,
   SCREENS_RESET_DATA,
+  SCREENS_RESET,
 } from "./actionsTypes";
 
 const initionState = {
+  screenshots: [],
   loading: false,
   loaded: false,
   error: false,
   loadedPage: 0,
   users: null,
   selectedUser: null,
-  screenshots: [],
 };
 
 const devicesScreensReducer = (state = initionState, action) => {
@@ -78,6 +79,18 @@ const devicesScreensReducer = (state = initionState, action) => {
         ...state,
         screenshots: [],
         loadedPage: 0,
+      };
+    }
+
+    case SCREENS_RESET: {
+      return {
+        loading: false,
+        loaded: false,
+        error: false,
+        loadedPage: 0,
+        users: null,
+        selectedUser: null,
+        screenshots: [],
       };
     }
 

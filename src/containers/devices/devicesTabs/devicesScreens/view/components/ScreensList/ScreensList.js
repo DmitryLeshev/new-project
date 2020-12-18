@@ -11,9 +11,15 @@ import InfoIcon from "@material-ui/icons/Info";
 
 import Loader from "@src/components/Loader/Loader";
 
+// import { Scrollbars } from "react-custom-scrollbars";
+
+import { LazyLoad } from "@src/components";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     // padding: theme.spacing(1, 3),
+    width: "100%",
+    height: "calc(100vh - 415px)",
   },
   gridList: {
     width: "100%",
@@ -24,35 +30,41 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ScreenList = ({ screenshots, loading }) => {
+const ScreenList = ({ screenshots, loading, appendItems }) => {
   const classes = useStyles();
-  console.log("screenshots: ", screenshots);
   return (
     <div className={classes.root}>
-      <GridList className={classes.gridList} cols={5} spacing={8}>
-        {screenshots.map((screenshot, index) => (
-          <GridListTile key={index}>
-            <img
-              src={`data:image/png;base64,${screenshot.img}`}
-              alt={screenshot.date}
-            />
-            <GridListTileBar
-              titlePosition="bottom"
-              title={screenshot.date}
-              subtitle={<span>{screenshot.time}</span>}
-              actionIcon={
-                <IconButton
-                  aria-label={`info about ${screenshot.date}`}
-                  className={classes.icon}
-                >
-                  <InfoIcon />
-                </IconButton>
-              }
-            />
-            {loading && <Loader />}
-          </GridListTile>
-        ))}
-      </GridList>
+      <LazyLoad appendItems={appendItems}>
+        <GridList
+          className={classes.gridList}
+          cellHeight={120}
+          cols={5}
+          spacing={8}
+        >
+          {screenshots.map((screenshot, index) => (
+            <GridListTile key={index}>
+              <img
+                src={`data:image/png;base64,${screenshot.img}`}
+                alt={screenshot.date}
+              />
+              <GridListTileBar
+                titlePosition="bottom"
+                title={screenshot.date}
+                subtitle={<span>{screenshot.time}</span>}
+                actionIcon={
+                  <IconButton
+                    aria-label={`info about ${screenshot.date}`}
+                    className={classes.icon}
+                  >
+                    <InfoIcon />
+                  </IconButton>
+                }
+              />
+              {loading && <Loader />}
+            </GridListTile>
+          ))}
+        </GridList>
+      </LazyLoad>
     </div>
   );
 };

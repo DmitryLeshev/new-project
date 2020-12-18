@@ -3,13 +3,14 @@ import {
   PROGRAMS_LOADED,
   PROGRAMS_ERROR,
   PROGRAMS_ADD_LIST,
+  PROGRAMS_RESET,
 } from "./actionsTypes";
 
 const initionState = {
+  list: [],
   loading: false,
   loaded: false,
   error: false,
-  list: [],
 };
 
 const devicesProgramsReducer = (state = initionState, action) => {
@@ -42,6 +43,15 @@ const devicesProgramsReducer = (state = initionState, action) => {
         ...state,
         loading: false,
         list: [...state.list, ...action.payload],
+      };
+    }
+
+    case PROGRAMS_RESET: {
+      return {
+        loading: false,
+        loaded: false,
+        error: false,
+        list: [],
       };
     }
 

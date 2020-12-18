@@ -2,6 +2,7 @@ import {
   PROGRAMS_LOADING,
   PROGRAMS_LOADED,
   PROGRAMS_ERROR,
+  PROGRAMS_RESET,
   PROGRAMS_ADD_LIST,
 } from "./actionsTypes";
 
@@ -23,6 +24,12 @@ export function programsLoaded() {
 export function programsError() {
   return {
     type: PROGRAMS_ERROR,
+  };
+}
+
+export function programsReset() {
+  return {
+    type: PROGRAMS_RESET,
   };
 }
 

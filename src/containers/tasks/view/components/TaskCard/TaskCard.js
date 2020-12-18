@@ -119,9 +119,9 @@ const TaskCard = ({ task, selectedTask, match, history }) => {
   );
   const classes = useStyles();
   const { t } = useTranslation();
-  console.log("selectedTask: ", selectedTask);
-  console.log("id: ", id);
-  console.log("open: ", open);
+  // console.log("selectedTask: ", selectedTask);
+  // console.log("id: ", id);
+  // console.log("open: ", open);
 
   function openCard() {
     history.push(`/tasks/${match.params.status}/${id}`);

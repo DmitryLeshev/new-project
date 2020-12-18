@@ -3,13 +3,14 @@ import {
   PROCESSES_LOADED,
   PROCESSES_ERROR,
   PROCESSES_ADD_LIST,
+  PROCESSES_RESET,
 } from "./actionsTypes";
 
 const initionState = {
+  list: [],
   loading: false,
   loaded: false,
   error: false,
-  list: [],
 };
 
 const devicesProcessesReducer = (state = initionState, action) => {
@@ -42,6 +43,15 @@ const devicesProcessesReducer = (state = initionState, action) => {
         ...state,
         loading: false,
         list: [...state.list, ...action.payload],
+      };
+    }
+
+    case PROCESSES_RESET: {
+      return {
+        loading: false,
+        loaded: false,
+        error: false,
+        list: [],
       };
     }
 

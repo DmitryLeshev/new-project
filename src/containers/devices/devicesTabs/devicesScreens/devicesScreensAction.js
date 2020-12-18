@@ -6,6 +6,7 @@ import {
   SCREENS_ADD_SCREENSHOTS_PACK,
   SCREENS_LOADED,
   SCREENS_ERROR,
+  SCREENS_RESET,
   SCREENS_RESET_DATA,
 } from "./actionsTypes";
 
@@ -83,6 +84,12 @@ export function screensLoaded() {
 export function screensError() {
   return {
     type: SCREENS_ERROR,
+  };
+}
+
+export function screensReset() {
+  return {
+    type: SCREENS_RESET,
   };
 }
 

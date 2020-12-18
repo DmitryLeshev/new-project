@@ -2,6 +2,7 @@ import {
   PROCESSES_LOADING,
   PROCESSES_LOADED,
   PROCESSES_ERROR,
+  PROCESSES_RESET,
   PROCESSES_ADD_LIST,
 } from "./actionsTypes";
 
@@ -23,6 +24,12 @@ export function processesLoaded() {
 export function processesError() {
   return {
     type: PROCESSES_ERROR,
+  };
+}
+
+export function processesReset() {
+  return {
+    type: PROCESSES_RESET,
   };
 }
 

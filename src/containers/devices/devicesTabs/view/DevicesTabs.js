@@ -41,7 +41,7 @@ const DevicesTabs = ({ device, id, tab, tabsConfig, selectedTab }) => {
               key={tabConfig.id}
               className={classes.tabItem}
               title={`Устройства: ${label}`}
-              scroll={true}
+              scroll={tabConfig.scroll}
             >
               <Component id={id} />
             </Page>

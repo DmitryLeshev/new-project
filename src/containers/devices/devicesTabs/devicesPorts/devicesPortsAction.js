@@ -2,6 +2,7 @@ import {
   PORTS_LOADING,
   PORTS_LOADED,
   PORTS_ERROR,
+  PORTS_RESET,
   PORTS_ADD_LIST,
 } from "./actionsTypes";
 
@@ -26,6 +27,12 @@ export function portsError() {
   };
 }
 
+export function portsReset() {
+  return {
+    type: PORTS_RESET,
+  };
+}
+
 export function portsAddList(list) {
   return {
     type: PORTS_ADD_LIST,
@@ -47,7 +54,7 @@ export function getPortsList(id) {
           dispatch(portsLoaded());
         } else {
           console.log(res.msg);
-          dispatch(portsAddList(res.msg));
+          dispatch(portsAddList(res.msg.map(_transformPort)));
         }
       } else {
         console.log("Данные уже загружены");
@@ -59,13 +66,15 @@ export function getPortsList(id) {
   };
 }
 
-// const _transformPort = (program) => {
-//   return {
-//     icon: program.icon,
-//     instTst: new Date(program.instTst * 1000).toLocaleDateString(),
-//     location: program.location,
-//     name: program.name,
-//     publisher: program.publisher,
-//     version: program.version,
-//   };
-// };
+const _transformPort = (port) => {
+  return {
+    pid: port.pid,
+    appName: port.appName,
+    protocol: port.protocol,
+    localAddr: port.localAddr,
+    foreignAddr: port.foreignAddr,
+    state: port.state,
+    startTst: new Date(port.startTst * 1000).toLocaleDateString(),
+    stopTst: new Date(port.stopTst * 1000).toLocaleDateString(),
+  };
+};
