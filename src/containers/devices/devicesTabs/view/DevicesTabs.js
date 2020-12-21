@@ -7,6 +7,7 @@ import Page from "@src/components/Page/Page";
 import DevicesPlaceholder from "./components/DevicesPlaceholder";
 import DevicesTabsNavigation from "./components/DevicesTabsNavigation";
 import DevicesDetails from "./components/DevicesDetails";
+import DevicesNotProtected from "./components/DevicesNotProtected";
 
 const useStyles = makeStyles((theme) => ({
   devices: {
@@ -22,16 +23,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DevicesTabs = ({ device, id, tab, tabsConfig, selectedTab }) => {
+const DevicesTabs = ({ device, id, tab, tabsConfig, getSelectedTab }) => {
   const classes = useStyles();
+
   if (!id || !tab) return <DevicesPlaceholder />;
+
+  if (device && !device.isProtected) {
+    return (
+      <Page className={classes.devices} title="Устройство не защищено">
+        <DevicesDetails device={device} />
+        <DevicesNotProtected />
+      </Page>
+    );
+  }
+
   return (
     <Page className={classes.devices} title="Устройства">
       <DevicesDetails device={device} />
       <DevicesTabsNavigation
         tabs={tabsConfig}
         id={id}
-        selectedTab={selectedTab}
+        getSelectedTab={getSelectedTab}
       />
       {tabsConfig.map((tabConfig) => {
         const { value, label, component: Component } = tabConfig;

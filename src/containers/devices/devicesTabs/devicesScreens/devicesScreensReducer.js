@@ -8,6 +8,8 @@ import {
   SCREENS_ERROR,
   SCREENS_RESET_DATA,
   SCREENS_RESET,
+  SCREENS_DATE_FILTER,
+  SCREENS_ADD_FULLY_SCREENSHOT,
 } from "./actionsTypes";
 
 const initionState = {
@@ -18,6 +20,11 @@ const initionState = {
   loadedPage: 0,
   users: null,
   selectedUser: null,
+  dateFilter: {
+    dateStart: 0,
+    dateEnd: 0,
+  },
+  fullyScreenshot: null,
 };
 
 const devicesScreensReducer = (state = initionState, action) => {
@@ -91,6 +98,27 @@ const devicesScreensReducer = (state = initionState, action) => {
         users: null,
         selectedUser: null,
         screenshots: [],
+      };
+    }
+
+    case SCREENS_DATE_FILTER: {
+      return {
+        ...state,
+        dateFilter: action.payload,
+        loading: false,
+        loaded: false,
+        error: false,
+        loadedPage: 0,
+        users: null,
+        selectedUser: null,
+        screenshots: [],
+      };
+    }
+
+    case SCREENS_ADD_FULLY_SCREENSHOT: {
+      return {
+        ...state,
+        fullyScreenshot: action.payload,
       };
     }
 

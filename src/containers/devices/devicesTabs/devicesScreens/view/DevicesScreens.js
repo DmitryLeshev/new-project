@@ -24,6 +24,9 @@ const DevicesScreens = (props) => {
     screenshots,
     screensChangeSelectedUser,
     appendItems,
+    filterScreenshots,
+    getFullyScreenshot,
+    fullyScreenshot,
   } = props;
   const classes = useStyles();
   return (
@@ -33,6 +36,7 @@ const DevicesScreens = (props) => {
         users={users}
         selectedUser={selectedUser}
         screensChangeSelectedUser={screensChangeSelectedUser}
+        filterScreenshots={filterScreenshots}
       />
       <Divider />
       {error ? (
@@ -42,6 +46,8 @@ const DevicesScreens = (props) => {
           loading={loading}
           screenshots={screenshots}
           appendItems={appendItems}
+          getFullyScreenshot={getFullyScreenshot}
+          fullyScreenshot={fullyScreenshot}
         />
       )}
     </div>

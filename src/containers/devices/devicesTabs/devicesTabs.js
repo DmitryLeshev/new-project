@@ -10,9 +10,6 @@ import DevicesTabsView from "./view/DevicesTabs";
 import tabsConfig from "./devicesTabsConfig";
 
 class DevicesTabs extends Component {
-  state = {
-    selectedTab: 0,
-  };
   getDeviceById = () => {
     const { id } = this.props.match.params;
     const { devices } = this.props;
@@ -25,18 +22,13 @@ class DevicesTabs extends Component {
     if (!tab) return null;
     const selectedTab = tabsConfig.find((tabItem) => tabItem.value === tab);
     if (selectedTab === undefined) {
-      return this.props.history.push(`/devices/${id}/information`);
+      this.props.history.push(`/devices/${id}/information`);
+      return 0;
     }
     return selectedTab.id;
   };
 
-  componentDidMount() {
-    const selectedTab = this.getSelectedTab();
-    this.setState({ selectedTab });
-  }
-
   componentDidUpdate(prevProps) {
-    console.log("Devices Tabs componentDidUpdate...");
     if (prevProps.match.params.id !== this.props.match.params.id) {
       console.log("Switch device");
       this.props.resetAllDevices();
@@ -50,7 +42,7 @@ class DevicesTabs extends Component {
         tab={this.props.match.params.tab}
         device={this.getDeviceById()}
         tabsConfig={tabsConfig}
-        selectedTab={this.getSelectedTab()}
+        getSelectedTab={this.getSelectedTab}
       />
     );
   }

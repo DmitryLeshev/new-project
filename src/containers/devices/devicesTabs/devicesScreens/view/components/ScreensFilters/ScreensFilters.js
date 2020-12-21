@@ -6,13 +6,35 @@ import DateFnsUtils from "@date-io/date-fns";
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 
 const ScreensFilters = (props) => {
-  const { id, users, selectedUser, screensChangeSelectedUser } = props;
-  const [selectedDate, handleDateChange] = useState(new Date());
+  const {
+    id,
+    users,
+    selectedUser,
+    screensChangeSelectedUser,
+    filterScreenshots,
+  } = props;
+
+  const [selectedDateStart, handleDateChangeStart] = useState();
+  // const [selectedDateEnd, handleDateChangeEnd] = useState();
+
+  const convertDateToTimestamp = (date) => {
+    return Math.floor(date.getTime() / 1000);
+  };
+
+  const dateChange = (event) => {
+    // console.log(event);
+    handleDateChangeStart(event);
+    filterScreenshots(
+      convertDateToTimestamp(event),
+      convertDateToTimestamp(new Date())
+    );
+  };
 
   const handleChange = (event) => {
     const changeSelectedUser = event.target.value;
     screensChangeSelectedUser(id, changeSelectedUser);
   };
+
   let selecUser;
   if (!selectedUser) {
     selecUser = "";
@@ -46,24 +68,23 @@ const ScreensFilters = (props) => {
       <div className={classes.dateContainer}>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <DateTimePicker
-            label="С"
-            format="MM/dd/yyyy"
+            label="С какого времени искать"
+            format="dd/MM/yyyy"
             autoOk
-            // variant="inline"
             inputVariant="outlined"
-            value={selectedDate}
-            onChange={handleDateChange}
+            value={selectedDateStart}
+            onChange={dateChange}
           />
 
-          <DateTimePicker
+          {/* <DateTimePicker
             label="По"
-            format="MM/dd/yyyy"
+            format="dd/MM/yyyy"
             autoOk
             // variant="inline"
             inputVariant="outlined"
-            value={selectedDate}
-            onChange={handleDateChange}
-          />
+            value={selectedDateEnd}
+            onChange={handleDateChangeEnd}
+          /> */}
         </MuiPickersUtilsProvider>
       </div>
     </div>
@@ -71,3 +92,16 @@ const ScreensFilters = (props) => {
 };
 
 export default ScreensFilters;
+
+// <form className={classes.container} noValidate>
+// <TextField
+//   id="datetime-local"
+//   label="С какого времени искать"
+//   type="datetime-local"
+//   variant="outlined"
+//   className={classes.textField}
+//   InputLabelProps={{
+//     shrink: true,
+//   }}
+// />
+// </form>

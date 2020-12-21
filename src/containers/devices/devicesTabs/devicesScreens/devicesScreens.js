@@ -5,24 +5,43 @@ import { connect } from "react-redux";
 import {
   getDetailsScreens,
   screensChangeSelectedUser,
+  screensGetDateFilter,
+  screensGetFullyScreenshot,
 } from "./devicesScreensAction";
 
 import DevicesScreensView from "./view/DevicesScreens";
 
 class DevicesScreens extends Component {
   componentDidMount() {
-    const { id, loadedPage, loaded, getDetailsScreens } = this.props;
+    const { id, loaded, getDetailsScreens } = this.props;
     if (!loaded) {
-      getDetailsScreens(id, loadedPage);
+      getDetailsScreens(id);
+      getDetailsScreens(id);
     }
   }
 
   appendItems = () => {
-    console.log("appendItems");
-    const { id, loadedPage, loaded, getDetailsScreens, loading } = this.props;
+    const { id, loaded, getDetailsScreens, loading } = this.props;
     if (!loaded || !loading) {
-      getDetailsScreens(id, loadedPage);
+      getDetailsScreens(id);
+      getDetailsScreens(id);
     }
+  };
+
+  filterScreenshots = (dateStart, dateEnd) => {
+    const { screensGetDateFilter, getDetailsScreens, id } = this.props;
+    console.log("dateStart: ", dateStart, "dateEnd: ", dateEnd);
+    const dateFilter = {
+      dateStart,
+      dateEnd,
+    };
+    screensGetDateFilter(dateFilter);
+    getDetailsScreens(id);
+  };
+
+  getFullyScreenshot = (screenId) => {
+    const { id, screensGetFullyScreenshot } = this.props;
+    screensGetFullyScreenshot(id, screenId);
   };
 
   render() {
@@ -33,6 +52,7 @@ class DevicesScreens extends Component {
       users,
       selectedUser,
       screenshots,
+      fullyScreenshot,
       screensChangeSelectedUser,
     } = this.props;
 
@@ -45,7 +65,10 @@ class DevicesScreens extends Component {
         selectedUser={selectedUser}
         screenshots={screenshots}
         screensChangeSelectedUser={screensChangeSelectedUser}
+        fullyScreenshot={fullyScreenshot}
         appendItems={this.appendItems}
+        filterScreenshots={this.filterScreenshots}
+        getFullyScreenshot={this.getFullyScreenshot}
       />
     );
   }
@@ -60,15 +83,20 @@ function mapStateToProps(state) {
     users: state.combineDevices.screens.users,
     selectedUser: state.combineDevices.screens.selectedUser,
     screenshots: state.combineDevices.screens.screenshots,
+    fullyScreenshot: state.combineDevices.screens.fullyScreenshot,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    getDetailsScreens: (id, selectedUserValue) =>
-      dispatch(getDetailsScreens(id, selectedUserValue)),
+    getDetailsScreens: (id, dateStart, dateEnd) =>
+      dispatch(getDetailsScreens(id, dateStart, dateEnd)),
     screensChangeSelectedUser: (id, selectedUser) =>
       dispatch(screensChangeSelectedUser(id, selectedUser)),
+    screensGetDateFilter: (dateFilter) =>
+      dispatch(screensGetDateFilter(dateFilter)),
+    screensGetFullyScreenshot: (id, screenId) =>
+      dispatch(screensGetFullyScreenshot(id, screenId)),
   };
 }
 

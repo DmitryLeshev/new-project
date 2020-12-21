@@ -8,6 +8,8 @@ import {
   SCREENS_ERROR,
   SCREENS_RESET,
   SCREENS_RESET_DATA,
+  SCREENS_DATE_FILTER,
+  SCREENS_ADD_FULLY_SCREENSHOT,
 } from "./actionsTypes";
 
 import DevicesService from "../../devicesService";
@@ -18,6 +20,7 @@ const getScreenshotsPack = (screenshots) => {
   let newPackScreenshots = [];
   Object.keys(screenshots).forEach((screenshotKey) => {
     const newScreenshot = {
+      id: screenshotKey,
       date: new Date(screenshotKey * 1000).toLocaleDateString(),
       time: new Date(screenshotKey * 1000).toLocaleTimeString(),
       img: screenshots[screenshotKey],
@@ -101,19 +104,25 @@ export function getDetailsScreens(id, selectedUserValue = 0) {
         loadedPage,
         selectedUser,
         users,
+        dateFilter,
       } = getState().combineDevices.screens;
-
       if (!loaded) {
         // loadedPage = loadedPage + 1
         dispatch(screensLoadingScreenshotsPack());
         const res = await devicesService.getDeviceDetailsScreenshots(
           id,
           loadedPage + 1,
-          selectedUser
+          selectedUser,
+          dateFilter.dateStart,
+          dateFilter.dateEnd
         );
         if (res.status) {
           const responseScreenshots = res.msg.images;
           const responseUsers = res.msg.users;
+          if (!responseScreenshots) {
+            console.log("Cкриншоты загружены");
+            return dispatch(screensLoaded());
+          }
           const screenshotsPack = getScreenshotsPack(responseScreenshots);
 
           if (!users) {
@@ -134,6 +143,41 @@ export function getDetailsScreens(id, selectedUserValue = 0) {
         console.log("Все скриншоты загружены");
         dispatch(screensLoaded());
       }
+    } catch (error) {
+      console.log("throwing Error", error);
+      dispatch(screensError());
+    }
+  };
+}
+
+export function screensGetDateFilter(dateFilter) {
+  return {
+    type: SCREENS_DATE_FILTER,
+    payload: dateFilter,
+  };
+}
+
+export function screensAddFullyScreenshot(fullyScreenshot) {
+  return {
+    type: SCREENS_ADD_FULLY_SCREENSHOT,
+    payload: fullyScreenshot,
+  };
+}
+
+export function screensGetFullyScreenshot(id, screenId) {
+  return async (dispatch, getState) => {
+    try {
+      let { selectedUser } = getState().combineDevices.screens;
+      const res = await devicesService.getDeviceDetailsScreenshotById(
+        id,
+        screenId,
+        selectedUser
+      );
+      if (!res.msg) {
+        console.log("Беда! Нету скрина");
+        return dispatch(screensError());
+      }
+      dispatch(screensAddFullyScreenshot(res.msg));
     } catch (error) {
       console.log("throwing Error", error);
       dispatch(screensError());

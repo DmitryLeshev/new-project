@@ -1,6 +1,7 @@
 import React from "react";
 
-import { Typography, makeStyles } from "@material-ui/core";
+import LoaderIndicator from "./LoaderIndicator";
+import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,7 +17,7 @@ const Loader = () => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Typography variant="h2">Loading...</Typography>;
+      <LoaderIndicator />
     </div>
   );
 };

@@ -66,13 +66,25 @@ export function getProcessesList(id) {
   };
 }
 
+const _transformDate = (date) => {
+  const getSeconds = new Date(date * 1000).getSeconds();
+  const getMinutes = new Date(date * 1000).getMinutes();
+  const getHours = new Date(date * 1000).getHours();
+  const getDay = new Date(date * 1000).getDate();
+  const getMonth = new Date(date * 1000).getMonth() + 1;
+
+  return `${getDay}.${getMonth} - ${getHours}:${getMinutes}:${getSeconds}`;
+};
+
 const _transformProcess = (process) => {
   return {
     name: process.name,
     user: process.user,
     path: process.path,
     pid: process.pid,
-    startTst: new Date(process.startTst * 1000).toLocaleDateString(),
-    stopTst: new Date(process.stopTst * 1000).toLocaleDateString(),
+    startTst: _transformDate(process.startTst),
+    stopTst: _transformDate(process.stopTst),
+    // startTst: new Date(process.startTst * 1000).toLocaleDateString(),
+    // stopTst: new Date(process.stopTst * 1000).toLocaleDateString(),
   };
 };

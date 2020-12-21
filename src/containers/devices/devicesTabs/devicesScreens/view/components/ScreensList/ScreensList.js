@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   makeStyles,
@@ -6,6 +6,7 @@ import {
   GridListTileBar,
   GridListTile,
   GridList,
+  Backdrop,
 } from "@material-ui/core";
 import InfoIcon from "@material-ui/icons/Info";
 
@@ -28,10 +29,40 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     color: "rgba(255, 255, 255, 0.54)",
   },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: "#fff",
+  },
+  imgWrapper: {
+    maxWidth: 1400,
+    height: "auto",
+  },
+  fullyScreenshot: {
+    width: "100%",
+  },
 }));
 
-const ScreenList = ({ screenshots, loading, appendItems }) => {
+const ScreenList = ({
+  screenshots,
+  loading,
+  appendItems,
+  getFullyScreenshot,
+  fullyScreenshot,
+}) => {
   const classes = useStyles();
+
+  const [openScreenFull, setOpenScreenFull] = useState(false);
+
+  const openScreen = () => {
+    setOpenScreenFull(true);
+  };
+  const closeScreen = () => {
+    setOpenScreenFull(false);
+  };
+  const screenshotHandler = (id) => {
+    openScreen();
+    getFullyScreenshot(id);
+  };
   return (
     <div className={classes.root}>
       <LazyLoad appendItems={appendItems}>
@@ -42,7 +73,10 @@ const ScreenList = ({ screenshots, loading, appendItems }) => {
           spacing={8}
         >
           {screenshots.map((screenshot, index) => (
-            <GridListTile key={index}>
+            <GridListTile
+              key={index}
+              onClick={() => screenshotHandler(screenshot.id)}
+            >
               <img
                 src={`data:image/png;base64,${screenshot.img}`}
                 alt={screenshot.date}
@@ -65,6 +99,20 @@ const ScreenList = ({ screenshots, loading, appendItems }) => {
           ))}
         </GridList>
       </LazyLoad>
+      <Backdrop
+        className={classes.backdrop}
+        open={openScreenFull}
+        onClick={closeScreen}
+      >
+        <div className={classes.imgWrapper}>
+          <img
+            className={classes.fullyScreenshot}
+            onClick={closeScreen}
+            src={`data:image/png;base64,${fullyScreenshot}`}
+            alt="screen"
+          />
+        </div>
+      </Backdrop>
     </div>
   );
 };

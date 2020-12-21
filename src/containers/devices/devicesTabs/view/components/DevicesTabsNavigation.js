@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Link } from "react-router-dom";
 import { AppBar, Tabs, Tab, makeStyles } from "@material-ui/core";
+
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme) => ({
   tabsBar: {
@@ -13,10 +15,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TabsBar = (props) => {
-  const { tabs, id, selectedTab } = props;
-
-  const [value, setValue] = React.useState(selectedTab);
+  const { tabs, id, getSelectedTab } = props;
+  const { t } = useTranslation();
   const classes = useStyles();
+
+  const [value, setValue] = React.useState(getSelectedTab());
+
+  useEffect(() => {
+    setValue(getSelectedTab());
+  }, [getSelectedTab, id]);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -40,7 +48,7 @@ const TabsBar = (props) => {
         {tabs.map((tabDetails) => (
           <Tab
             key={tabDetails.value}
-            label={tabDetails.label}
+            label={t(`device-page.${tabDetails.i18nkey}`)}
             component={Link}
             to={`/devices/${id}/${tabDetails.value}`}
           />

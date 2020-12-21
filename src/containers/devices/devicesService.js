@@ -3,16 +3,18 @@ import query from "@assets/utils/query";
 export default class DevicesService {
   getAllDevices = async () => {
     const res = await query("device/list");
-    // console.log("getAllDevices", res);
     return res.msg;
   };
 
-  getDeviceDetailsPrograms = async (id) => {
-    // Перенести трансоформацию в редукс
-    const res = await query("deviceInfo/getPrograms", { id });
-    console.log(res);
+  getDevicesCountLicense = async () => {
+    const res = await query("device/getCountLicense");
+    console.log("getDevicesCountLicense res: ", res);
     return res;
-    // return res.map(this._transformProgram);
+  };
+
+  getDeviceDetailsPrograms = async (id) => {
+    const res = await query("deviceInfo/getPrograms", { id });
+    return res;
   };
 
   getDeviceDetailsScreenshots = async (
@@ -23,19 +25,31 @@ export default class DevicesService {
     tstEnd = 0
   ) => {
     const body = { id, page, user, tstStart, tstEnd };
-    console.log("getDeviceDetailsScreenshots body: ", body);
     const res = await query("deviceInfo/getScreen", body);
-    console.log("getDeviceDetailsScreenshots res: ", res);
     return res;
+    // console.log("getDeviceDetailsScreenshots body: ", body);
+    // console.log("getDeviceDetailsScreenshots res: ", res);
     // return await query("device/getLanScreen", body);
+  };
+
+  getDeviceDetailsScreenshotById = async (id, screenId, user) => {
+    const body = { id, screenId, user };
+    console.log("getDeviceById body: ", body);
+    const res = await query("deviceInfo/getScreenFully", body);
+    console.log("getDeviceById res: ", res);
+    return res;
   };
 
   getDeviceDetailsPorts = async (id) => {
     return await query("deviceInfo/getPorts", { id });
   };
 
-  getDeviceDetailsBrowser = async (id) => {
-    return await query("device/getLanBrowserTabs", { device_id: id });
+  getDeviceDetailsBrowser = async (id, tst = 0) => {
+    const body = { id, tst };
+    console.log("getDeviceDetailsBrowser body: ", body);
+    const res = await query("deviceInfo/getBrowserTabs", body);
+    console.log("getDeviceDetailsBrowser res: ", res);
+    return res;
   };
 
   getDeviceDetailsProcesses = async (id) => {
@@ -72,5 +86,7 @@ export default class DevicesService {
   };
 }
 
-// const devicesService = new DevicesService();
-// devicesService.getAllDevices();
+const devicesService = new DevicesService();
+// devicesService.getDeviceById(466, 1604059107, "MICROSTAR02\\admin");
+// devicesService.getDeviceDetailsBrowser(466);
+devicesService.getDevicesCountLicense();

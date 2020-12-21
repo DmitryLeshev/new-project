@@ -10,6 +10,7 @@ import DevicesEntry from "./devicesEntry/devicesEntry";
 
 const tabs = [
   {
+    i18nkey: "info-tab",
     value: "information",
     label: "Информация",
     id: 0,
@@ -17,6 +18,7 @@ const tabs = [
     scroll: true,
   },
   {
+    i18nkey: "programs-tab",
     value: "programs",
     label: "Программы",
     id: 1,
@@ -24,6 +26,7 @@ const tabs = [
     scroll: true,
   },
   {
+    i18nkey: "screens-tab",
     value: "screens",
     label: "Снимки экрана",
     id: 2,
@@ -31,6 +34,7 @@ const tabs = [
     scroll: false,
   },
   {
+    i18nkey: "ports-tab",
     value: "ports",
     label: "Порты",
     id: 3,
@@ -38,6 +42,7 @@ const tabs = [
     scroll: true,
   },
   {
+    i18nkey: "browser-tab",
     value: "browser",
     label: "Браузеры",
     id: 4,
@@ -45,6 +50,7 @@ const tabs = [
     scroll: true,
   },
   {
+    i18nkey: "proc-tab",
     value: "processes",
     label: "Процессы",
     id: 5,
@@ -52,14 +58,24 @@ const tabs = [
     scroll: true,
   },
   {
+    i18nkey: "resp-tab",
     value: "responsible",
     label: "Ответственные",
     id: 6,
     component: DevicesResponsible,
     scroll: true,
   },
-  { value: "logs", label: "Логи", id: 7, component: DevicesLogs, scroll: true },
+
   {
+    i18nkey: "logs-tab",
+    value: "logs",
+    label: "Логи",
+    id: 7,
+    component: DevicesLogs,
+    scroll: true,
+  },
+  {
+    i18nkey: "ap-tab",
     value: "entry",
     label: "Точки авторизации",
     id: 8,

@@ -19,6 +19,15 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: theme.spacing(3),
     },
   },
+  container: {
+    display: "flex",
+    flexWrap: "wrap",
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 200,
+  },
 }));
 
 export default useStyles;

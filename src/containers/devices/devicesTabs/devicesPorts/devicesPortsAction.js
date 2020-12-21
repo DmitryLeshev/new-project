@@ -66,6 +66,16 @@ export function getPortsList(id) {
   };
 }
 
+const _transformDate = (date) => {
+  const getSeconds = new Date(date * 1000).getSeconds();
+  const getMinutes = new Date(date * 1000).getMinutes();
+  const getHours = new Date(date * 1000).getHours();
+  const getDay = new Date(date * 1000).getDate();
+  const getMonth = new Date(date * 1000).getMonth() + 1;
+
+  return `${getDay}.${getMonth} - ${getHours}:${getMinutes}:${getSeconds}`;
+};
+
 const _transformPort = (port) => {
   return {
     pid: port.pid,
@@ -74,7 +84,9 @@ const _transformPort = (port) => {
     localAddr: port.localAddr,
     foreignAddr: port.foreignAddr,
     state: port.state,
-    startTst: new Date(port.startTst * 1000).toLocaleDateString(),
-    stopTst: new Date(port.stopTst * 1000).toLocaleDateString(),
+    startTst: _transformDate(port.startTst),
+    stopTst: _transformDate(port.stopTst),
+    // startTst: new Date(port.startTst * 1000).toLocaleDateString(),
+    // stopTst: new Date(port.stopTst * 1000).toLocaleDateString(),
   };
 };
